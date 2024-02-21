@@ -1,7 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#cursor {
+  animation: blink 1.1s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 100;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.blur-backdrop {
+  backdrop-filter: blur(3px);
+}
+
 @layer base {
   :root {
     --background: 167 29% 94%;
@@ -14,7 +41,7 @@
     --popover-foreground: 163 23% 39%;
  
     --primary: 163 23% 39%;
-    --primary-foreground: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
  
     --secondary: 13 23% 49%;
     --secondary-foreground: 0 14% 99%;
