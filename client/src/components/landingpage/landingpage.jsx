@@ -1,6 +1,6 @@
 import First from "./first"
 import Second from "./second"
-
+import Card from "./card"
 
 
 function LandingPage() {
@@ -9,6 +9,7 @@ function LandingPage() {
       <First />
       <Second />
     </div>
+    
   )
 }
 
