@@ -1,7 +1,7 @@
 import { Toaster } from "react-hot-toast";
 import Signup from "./components/authentication/Signup";
-import About from "./components/devPages/About";
-import Contact from "./components/devPages/Contact";
+import About from "./components/devpages/About";
+import Contact from "./components/devpages/Contact";
 import Hospitalfull from "./components/hospitalDashboard/Hospitalfull";
 import LandingPage from "./components/landingpage/landingpage";
 import { Navbar } from "./components/navbar/header";
