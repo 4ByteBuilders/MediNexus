@@ -29,38 +29,25 @@ const sideBarItemsLower = [
 ];
 function Sidebar() {
     return (
-        <div className='fixed left-0 top-0 h-screen w-12 flex flex-col
+        <div className='fixed left-0 top-0 h-screen w-36 flex flex-col
          justify-between bg-secondary'>
             <div>
 
-                <div className='grid place-items-center mb-12 w-full p-3 transition-colors duration-300 cursor-pointer hover:bg-primary hover:text-secondary'>
+                <div className='flex flex-row gap-2 items-center justify-center mb-12 w-full p-3 transition-colors duration-300 cursor-pointer hover:bg-primary hover:text-secondary'>
                     <div className=''>
                         <IoMenu size={25} />
                     </div>
-                    <div className='hidden '>
+                    <div className=''>
                         Menu
                     </div>
                 </div>
 
                 {sideBarItemsUpper.map((item, index) => (
-                    <div key={index} className='grid place-items-center w-full p-3 transition-colors duration-300 cursor-pointer hover:bg-primary hover:text-secondary'>
+                    <div key={index} className='flex flex-row gap-2 items-center justify-center w-full p-3 transition-colors duration-300 cursor-pointer hover:bg-primary hover:text-secondary'>
                         <div className=''>
                             {item.icon}
                         </div>
-                        <div className='hidden '>
-                            {item.name}
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <div>
-
-                {sideBarItemsLower.map((item, index) => (
-                    <div key={index} className='grid place-items-center w-full p-3 transition-colors duration-300 cursor-pointer hover:bg-primary hover:text-secondary'>
                         <div className=''>
-                            {item.icon}
-                        </div>
-                        <div className='hidden '>
                             {item.name}
                         </div>
                     </div>

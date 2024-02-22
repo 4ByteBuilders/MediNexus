@@ -34,7 +34,7 @@ const Patientlist = () => {
 
   return (
   <div className='grid grid-cols-4'>
-    <div className='px-8'>
+    <div className=''>
       <h1 className='font-bold leading-10 border-b border-black-200'>Patient Name</h1>
       {patients.map((patient) => {
         return (

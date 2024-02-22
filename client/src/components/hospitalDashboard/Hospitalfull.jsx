@@ -19,14 +19,14 @@ const Hospitalfull = () => {
   return (
     <div className="w-full grid grid-cols-3">
       <Sidebar />
-      <div className="col-span-2 ml-20 m-auto flex flex-row flex-wrap align-center justify-center">
-        <div className="ml-20">
-          <Input type="text" placeholder="Search patient" />
-        </div>
-        <div className="m-auto">
-          <Link to='/signup' className='font-semibold text-1xl p-3'>Add Patient</Link>
+      <div className="col-span-2  m-auto flex flex-row flex-wrap align-center justify-center">
+        <div className="pl-20 ml-20">
+        <div className="flex flex-row items-center justify-between w-full gap-5 mb-6">
+          <Input className="rounded-xl border-0 bg-white" type="text" placeholder="Search patient" />
+          <Button className='font-semibold p-3'>Add Patient</Button>
         </div>
         <Patientlist />
+        </div>
         {/* <Card>
           <CardContent>
             <button>
