@@ -8,15 +8,9 @@ const { Patient } = require('../../Models/Patient');
 
 const router = express.Router();
 
-router.post('/add-patient', catchAsync(protector), catchAsync(addPatient));
-
-router.get(
-    "/patient-lookup",
-    catchAsync(protector),
-    catchAsync(getPatient)
-  );
-
-router.get("/recent-patients", protector, catchAsync(async(req,res,next)=>{
+  
+router.get("/recent-patients", catchAsync(protector), catchAsync(async(req,res,next)=>{
+  
     const isHospital = req.isHospital;
     if(isHospital === false){
         throw new CustomError("Unauthorized Access", 401);
@@ -36,5 +30,13 @@ router.get("/recent-patients", protector, catchAsync(async(req,res,next)=>{
     }
     res.status(200).send({status: "Recent Patients", patientDetails});
 }));
+
+router.get(
+  "/patient-lookup",
+  catchAsync(protector),
+  catchAsync(getPatient)
+  );
+
+router.post('/add-patient', catchAsync(protector), catchAsync(addPatient));
 
 module.exports = router;

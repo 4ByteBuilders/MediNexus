@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const { Hospital } = require("../Models/Hospital");
 const {Patient} = require("../Models/Patient");
 const CustomError = require("../CustomError");
+const Prescription = require("../Models/Prescription");
+
 
 const hospitalRegister = async (req, res, next) => {
     const { registrationId, name, address, password, contactNumber, emailId } =
@@ -23,7 +25,13 @@ const hospitalRegister = async (req, res, next) => {
       });
       await newHospital.save();
       const token = jwt.sign({ _id: registrationId }, process.env.SECRET_KEY);
-      res.cookie("token", token, {httpOnly: true, maxAge: 2 * 24 * 60 * 60 * 1000,});
+      // res.cookie("token", token, {httpOnly: true, maxAge: 2 * 24 * 60 * 60 * 1000,});
+      res.cookie("token", token, {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+        maxAge: 2 * 24 * 60 * 60 * 1000,
+      });
       res
         .status(200)
         .send({ status: "Hospital Registered", newHospital: {...newHospital, password: null}, token });
@@ -38,7 +46,13 @@ const hospitalLogin = async (req, res, next) => {
       const passwordIsValid = await bcrypt.compare(password, hospital.password);
       if (passwordIsValid) {
         const token = jwt.sign({ _id: registrationId }, process.env.SECRET_KEY);
-        res.cookie("token", token, {httpOnly: true, maxAge: 2 * 24 * 60 * 60 * 1000,});
+        // res.cookie("token", token, {httpOnly: true, maxAge: 2 * 24 * 60 * 60 * 1000,});
+        res.cookie("token", token, {
+          httpOnly: true,
+          sameSite: "none",
+          secure: true,
+          maxAge: 2 * 24 * 60 * 60 * 1000,
+        });
         res.status(200).send({ status: "Hospital Logged In", hospital: {...hospital, password: null}, token });
       } else {
         throw new CustomError("Incorrect Hospital ID or Password", 401);
@@ -77,7 +91,7 @@ const addPatient = async (req, res) => {
   }
 
   const getPatient = async (req, res, next) => {
-    let { firstName, lastName } = req.body;
+    let { firstName, lastName } = req.query;
     firstName = firstName.toLowerCase();
     lastName = lastName.toLowerCase();
     const patientName = `${firstName} ${lastName}`;

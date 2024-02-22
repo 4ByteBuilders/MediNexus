@@ -4,10 +4,10 @@ const Doctor = require("../Models/Doctor");
 const { Hospital } = require("../Models/Hospital");
 const { Patient } = require("../Models/Patient");
 
-const protector = async(req,res,next)=>{
+const protector = async(req,res, next)=>{
     const token = req.cookies.token;
     console.log("*******");
-    console.log(token);
+    console.log(req.cookies.token);
     console.log("*******");
     if(!token){
         throw new CustomError("Unauthorized Access", 401);
@@ -36,6 +36,11 @@ const protector = async(req,res,next)=>{
         throw new CustomError("User Not Found", 404);
     }
 }
+
+// const protector = async (req,res)=>{
+//     const token = req.cookies.token;
+//     console.log("token", token);
+// }
 
 module.exports = {
     protector,
