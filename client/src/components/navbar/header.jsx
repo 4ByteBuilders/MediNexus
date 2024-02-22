@@ -26,7 +26,7 @@ export function Navbar() {
   }
 
   return (
-    <div className="relative w-full bg-background font-lato">
+    <div className={window.location.pathname == '/hospitalhome' ? "hidden" : "relative w-full bg-background font-lato z-10"}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
         <div className="inline-flex items-center space-x-2">
           <span>
