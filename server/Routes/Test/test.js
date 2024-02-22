@@ -14,6 +14,7 @@ router.post("/create", protector, catchAsync(async(req,res,next)=>{
     if(isHospital === false){
         throw new CustomError("Unauthorized Access", 401);
     }
+    const hospitalId = req.user._id;
     const prescription = await Prescription.findById(prescriptionId);
     if(!prescription){
         throw new CustomError("Prescription Not Found", 404);
@@ -23,7 +24,7 @@ router.post("/create", protector, catchAsync(async(req,res,next)=>{
     const doctorName = doctor.name;
     patientName = patientName.toLowerCase();
     const newTest = new Test({
-        _id: uuid.v4().substring(0, 8),
+        _id: `${hospitalId}-${uuid.v4().substring(0, 8)}`,
         testName,
         patientName,
         patientId,
@@ -38,20 +39,20 @@ router.post("/create", protector, catchAsync(async(req,res,next)=>{
     // test ids to be uploaded by hospital
 }));
 
-// router.patch("/upload-results", protector, catchAsync(async(req,res,next)=>{
-//     let {testId, testResults} = req.body;
-//     const isHospital = req.isHospital;
-//     if(isHospital === false){
-//         throw new CustomError("Unauthorized Access", 401);
-//     }
-//     const test = await Test.findById(testId);
-//     if(!test){
-//         throw new CustomError("Test Not Found", 404);
-//     }
-//     test.testResults = testResults;
-//     await test.save();
-//     res.status(200).send({status: "Test Results Uploaded", test});
-//     // socket ting to patient (pending)
-// }));
+router.patch("/upload-results", protector, catchAsync(async(req,res,next)=>{
+    let {testId, testResults} = req.body;
+    const isHospital = req.isHospital;
+    if(isHospital === false){
+        throw new CustomError("Unauthorized Access", 401);
+    }
+    const test = await Test.findById(testId);
+    if(!test){
+        throw new CustomError("Test Not Found", 404);
+    }
+    test.testResults = testResults;
+    await test.save();
+    res.status(200).send({status: "Test Results Uploaded", test});
+    // socket ting to patient AND DOCTOR (pending)
+}));
 
 module.exports = router;
