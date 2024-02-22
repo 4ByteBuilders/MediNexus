@@ -1,7 +1,7 @@
-import First from "./first"
-import Second from "./second"
-import Third from "./Third"
-import Footer from "./Footer"
+import First from "./first";
+import Second from "./second";
+import Third from "./Third";
+import Footer from "./Footer";
 
 function LandingPage() {
   return (
@@ -9,11 +9,9 @@ function LandingPage() {
       <First />
       <Second />
       <Third />
-      <Footer/>
-
+      <Footer />
     </div>
-
-  )
+  );
 }
 
-export default LandingPage
+export default LandingPage;

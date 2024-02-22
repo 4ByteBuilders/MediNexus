@@ -1,50 +1,34 @@
-import React from "react";
+import { useContext } from "react";
 import { Button } from "../ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import Patientlist from "./Patientlist";
+import { HospitalDataContext } from "@/contextAPIs/HospitalContext";
+import { Input } from "../ui/input";
+import Sidebar from "../navbar/sideBar";
+import Hospitaldetails from "./Hospitaldetails";
+import Hospitalselfstock from "./Hospitalselfstock";
+
 const Hospitalfull = () => {
+  const { hospitalData } = useContext(HospitalDataContext);
+  console.log(hospitalData);
   return (
     <div className="w-full grid grid-cols-3">
-      <div className="col-span-2 ml-20 m-auto flex flex-row align-center justify-center">
-        <div>
-          <input className="my-5 mr-4 px-4 py-2 placeholder-green-500 bg-white rounded-lg text-sm border border-green-400 focus:outline-none focus:border-green-600" 
-          type="text" 
-          placeholder="Search patient"/>
+      <Sidebar />
+      <div className="col-span-2  m-auto flex flex-row flex-wrap align-center justify-center w-10/12 mx-20">
+        {/* search patient and patient details component */}
+        <div className="pl-20 ml-20 mt-10 w-full">
+          <div className="flex flex-row items-center justify-between w-full gap-5 mb-6">
+            <Input
+              className="rounded-xl border-0 bg-white"
+              type="text"
+              placeholder="Search patient"
+            />
+            <Button className="font-semibold p-3">Add Patient</Button>
           </div>
-          <div className="m-auto">
-          <Button className='font-semibold text-1xl p-3 '>Add Patient</Button>
-          </div>
-        {/* <Card>
-          <CardContent>
-            <button>
-                Create profile
-            </button>
-          </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
-        </Card> */}
+          <Patientlist />
+          <Hospitaldetails hospitalData={hospitalData} />
+        </div>
       </div>
-      <div className="col-span-1 m-10 mx-30">
-        <Card>
-          <CardHeader>
-            <CardTitle>Card Title</CardTitle>
-            <CardDescription>Card Description</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p>Card Content</p>
-          </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
-        </Card>
-      </div>
+      <Hospitalselfstock />
     </div>
   );
 };
