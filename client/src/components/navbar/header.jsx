@@ -24,13 +24,14 @@ export function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
   return (
     <div
       className={
-        window.location.pathname == "/hospitalhome" || "/viewstocks"
+        window.location.pathname === "/hospitalhome" ||
+        window.location.pathname === "/viewstocks" ||
+        window.location.pathname === "/skeleton"
           ? "hidden"
-          : "relative w-full bg-background font-lato z-10"
+          : "relative w-full bg-background font-lato z-10"
       }
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">

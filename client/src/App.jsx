@@ -8,6 +8,8 @@ import { Navbar } from "./components/navbar/header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HospitalDataProvider } from "./contextAPIs/HospitalContext";
 import Fullstocks from "./components/viewStocks/Fullstocks";
+import Skeleton from "./components/SkeletonCard";
+import Skeletoncomp from "./components/SkeletonCard";
 
 export default function App() {
   return (
@@ -22,11 +24,13 @@ export default function App() {
       />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/signup" element={
-          <HospitalDataProvider>
-            <Signup />
-          </HospitalDataProvider>
-        }
+        <Route
+          path="/signup"
+          element={
+            <HospitalDataProvider>
+              <Signup />
+            </HospitalDataProvider>
+          }
         />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

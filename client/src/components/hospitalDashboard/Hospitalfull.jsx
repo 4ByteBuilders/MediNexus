@@ -24,7 +24,7 @@ const Hospitalfull = () => {
             <Button className="font-semibold p-3">Add Patient</Button>
           </div>
           <Patientlist />
-          <Hospitaldetails />
+          <Hospitaldetails hospitalData={hospitalData} />
         </div>
       </div>
       <Hospitalselfstock />
