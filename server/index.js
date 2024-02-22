@@ -5,8 +5,10 @@ const app = express();
 const cors = require("cors");
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer);
-const authRoutes = require("./Routes/Auth/auth");
 const hospitalAuth = require("./Routes/Auth/hospitalAuth");
+const hospitalRoutes = require("./Routes/Hospital/hospital");
+const patientRoutes = require("./Routes/Patient/patient");
+
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URL, {});
@@ -26,6 +28,8 @@ corsOptions = {
 
 app.use(cors(corsOptions));
 app.use("/hospital-auth", hospitalAuth);
+app.use("/hospital", hospitalRoutes);
+app.use("/patient", patientRoutes);
 app.use((err, req, res, next) => {
   // Log the error in detail, if in development mode
   if (process.env.NODE_ENV === "development") {
