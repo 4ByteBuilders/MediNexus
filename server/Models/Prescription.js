@@ -22,7 +22,6 @@ const PrescriptionSchema = new Schema({
     },
     disease: {
         type: String,
-        required: true,
     },
     testIds: [{
         type: Schema.Types.String,
@@ -30,7 +29,6 @@ const PrescriptionSchema = new Schema({
     }],
     doctorsOpinion: {
         type: String,
-        required: true,
     },
 });
 

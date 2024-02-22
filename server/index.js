@@ -11,6 +11,8 @@ const hospitalRoutes = require("./Routes/Hospital/hospital");
 const patientRoutes = require("./Routes/Patient/patient");
 const doctorAuth = require("./Routes/Auth/doctorAuth");
 const persistentLoginRoute = require('./Routes/PersistentLogin/persistentLogin');
+const prescriptionRoutes = require("./Routes/Prescription/prescription");
+
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URL, {});
@@ -35,6 +37,7 @@ app.use("/hospital-auth", hospitalAuth);
 app.use("/doctor-auth", doctorAuth);
 app.use("/hospital", hospitalRoutes);
 app.use("/patient", patientRoutes);
+app.use("/prescription", prescriptionRoutes);
 app.use((err, req, res, next) => {
   // Log the error in detail, if in development mode
   if (process.env.NODE_ENV === "development") {
