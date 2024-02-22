@@ -1,4 +1,4 @@
-import React from "react";
+import { useContext } from "react";
 import { Button } from "../ui/button";
 import Patientlist from "./Patientlist";
 import { Link } from "react-router-dom";
@@ -10,7 +10,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { HospitalDataContext } from "@/contextAPIs/HospitalContext";
 const Hospitalfull = () => {
+  const { hospitalData } = useContext(HospitalDataContext);
   return (
     <div className="w-full grid grid-cols-3">
       <div className="col-span-2 ml-20 m-auto flex flex-row flex-wrap align-center justify-center">

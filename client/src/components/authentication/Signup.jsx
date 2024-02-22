@@ -1,7 +1,7 @@
 import * as z from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-
+import { instance as axios } from "../../lib/axiosConfig"
 import {
     Form,
     FormControl,
@@ -13,6 +13,10 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "../ui/button"
+import toast from "react-hot-toast"
+import { useContext } from "react"
+import { HospitalDataContext } from "@/contextAPIs/HospitalContext"
+import { useNavigation } from "react-router-dom"
 
 const hospitalSchema = z.object({
     registrationId: z.string().min(6).max(50),
@@ -32,15 +36,26 @@ const initialValues = {
     contactNumber: "",
 }
 
-export default function Login() {
+export default function Signup() {
+    const { setHospitalData } = useContext(HospitalDataContext);
     const form = useForm({
         resolver: zodResolver(hospitalSchema),
         defaultValues: initialValues,
     });
 
-    function onSubmit(values) {
-
-        console.log(values)
+    async function onSubmit(values) {
+        try {
+            const res = await axios.post("/hospital-auth/register", values);
+            console.log(res)
+            setHospitalData(res.data._doc);
+            toast.success("Hospital registered successfully")
+            setTimeout(() => {
+                window.location.href = "/hospitalhome"
+            }, 1500);
+        } catch (error) {
+            console.log(error)
+            toast.error("An error occurred")
+        }
     }
 
     return (
