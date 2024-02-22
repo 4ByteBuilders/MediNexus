@@ -11,10 +11,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { instance as axios } from "../../lib/axiosConfig";
 
 export default function TestResults({ item }) {
   const [name, setName] = useState("");
   const [aadhar, setAadhar] = useState("");
+  const [isLoading, setLoading] = useState(false);
+  const searchPatient = async () => {
+    setLoading(true);
+    try {
+      const firstName = name.split(' ')[0];
+      const lastName = name.split(' ')[1];
+      const res = await axios.get('/hospital/patient-lookup', { firstName, lastName })
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+    setLoading(false);
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -51,7 +67,8 @@ export default function TestResults({ item }) {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Search</Button>
+          {isLoading ? <Button disabled>Loading...</Button> :
+            <Button type="submit" onClick={searchPatient}>Search</Button>}
         </DialogFooter>
       </DialogContent>
     </Dialog>
