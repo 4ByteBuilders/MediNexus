@@ -22,6 +22,7 @@ router.post(
       });
       await newHospital.save();
       const token = await jwt.sign({ registrationId }, process.env.SECRET_KEY);
+      res.cookie("token", token, {httpOnly: true, secure: true});
       res
         .status(200)
         .send({ status: "Hospital Registered", newHospital, token });
@@ -36,6 +37,7 @@ router.post("/login", async (req, res) => {
     const passwordIsValid = bcrypt.compare(password, hospital.password);
     if (passwordIsValid) {
       const token = await jwt.sign({ registrationId }, process.env.SECRET_KEY);
+      res.cookie("token", token, {httpOnly: true, secure: true});
       res.status(200).send({ status: "Hospital Logged In", hospital, token });
     } else {
       throw new CustomError("Incorrect Hospital ID or Password", 401);
