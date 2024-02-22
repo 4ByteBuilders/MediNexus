@@ -6,7 +6,20 @@ import Hospitalfull from "./components/hospitalDashboard/Hospitalfull";
 import LandingPage from "./components/landingPage/landingpage";
 import { Navbar } from "./components/navbar/header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 export default function App() {
+
+  const [welcome, setWelcome] = useState("Loading...");
+
+  useEffect(()=>{
+    const fetchWelcomeMessage = async ()=>{
+      const res = await axios.get('/');
+      console.log(res.data);
+      setWelcome(res.data.message);
+    }
+    fetchWelcomeMessage();
+  }, []);
+
   return (
     <BrowserRouter>
       <Navbar />
