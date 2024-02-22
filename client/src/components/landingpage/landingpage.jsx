@@ -1,6 +1,7 @@
 import First from "./first"
 import Second from "./second"
 import Third from "./Third"
+import Footer from "./Footer"
 
 function LandingPage() {
   return (
@@ -8,6 +9,8 @@ function LandingPage() {
       <First />
       <Second />
       <Third />
+      <Footer/>
+
     </div>
 
   )

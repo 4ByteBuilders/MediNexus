@@ -23,7 +23,7 @@ const Third = () => {
             </div>
         </div>
         <div>
-            <img src="/logo.png" alt="" />
+            <img src="/images/centralized.png" alt="" />
         </div>
     </div>
   )
