@@ -8,6 +8,7 @@ const io = require("socket.io")(httpServer);
 const hospitalAuth = require("./Routes/Auth/hospitalAuth");
 const hospitalRoutes = require("./Routes/Hospital/hospital");
 const patientRoutes = require("./Routes/Patient/patient");
+const doctorAuth = require("./Routes/Auth/doctorAuth");
 
 app.use(express.json());
 
@@ -28,6 +29,7 @@ corsOptions = {
 
 app.use(cors(corsOptions));
 app.use("/hospital-auth", hospitalAuth);
+app.use("/doctor-auth", doctorAuth);
 app.use("/hospital", hospitalRoutes);
 app.use("/patient", patientRoutes);
 app.use((err, req, res, next) => {
