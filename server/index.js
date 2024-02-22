@@ -26,3 +26,13 @@ app.get('/', (req, res) => {
     res.send({message: 'Hello World!!'});
 });
 
+app.use((err, req, res, next) => {
+    // Log the error in detail, if in development mode
+    if (process.env.NODE_ENV === 'development') {
+      console.error(err.stack);
+    }
+    // Send generic or specific error message
+    res.status(err.statusCode || 500).json({
+      message: err.message || 'Internal Server Error',
+    });
+  });
