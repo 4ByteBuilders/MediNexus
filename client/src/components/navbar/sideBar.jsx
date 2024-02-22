@@ -1,8 +1,3 @@
-import { CiHome } from "react-icons/ci";
-import { CiSettings } from "react-icons/ci";
-import { IoIosLogOut } from "react-icons/io";
-import { IoHelpCircleOutline } from "react-icons/io5";
-import { IoMenu } from "react-icons/io5";
 import { GiHeartOrgan } from "react-icons/gi";
 import { GrDocumentTest } from "react-icons/gr";;
 import { MdDashboard } from "react-icons/md"
@@ -31,15 +26,15 @@ function Sidebar() {
 
                 <div className='flex flex-row gap-2 items-center justify-center mb-12 w-full p-3 transition-colors duration-300 cursor-pointer'>
                     <div className='w-14 mr-2'>
-                    <img src="/logo.png" alt="logo"/>
+                        <img src="/logo.png" alt="logo" />
                     </div>
                     <div className=''>
-                    <span className="font-bold">MediNexus</span>
+                        <span className="font-bold">MediNexus</span>
                     </div>
                 </div>
 
                 {sideBarItemsUpper.map((item, index) => (
-                    <div key={index} className={window.location.pathname==item.link?'flex flex-row gap-2 items-center justify-start w-full p-3 transition-colors duration-300 cursor-pointer bg-primary':'flex flex-row gap-2 items-center justify-start w-full p-3 transition-colors duration-300 cursor-pointer hover:bg-slate-200 '}>
+                    <div key={index} className={window.location.pathname == item.link ? 'flex flex-row gap-2 items-center justify-start w-full p-3 transition-colors duration-300 cursor-pointer bg-primary' : 'flex flex-row gap-2 items-center justify-start w-full p-3 transition-colors duration-300 cursor-pointer hover:bg-slate-200 '}>
                         <div className=''>
                             {item.icon}
                         </div>
