@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import { Button } from "../ui/button";
 import Patientlist from "./Patientlist";
-import { Link } from "react-router-dom";
-
 import { HospitalDataContext } from "@/contextAPIs/HospitalContext";
 import { Input } from "../ui/input";
 import Sidebar from "../navbar/sideBar";

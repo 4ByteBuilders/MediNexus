@@ -1,12 +1,7 @@
-import { CiHome } from "react-icons/ci";
-import { CiSettings } from "react-icons/ci";
-import { IoIosLogOut } from "react-icons/io";
-import { IoHelpCircleOutline } from "react-icons/io5";
-import { IoMenu } from "react-icons/io5";
 import { GiHeartOrgan } from "react-icons/gi";
 import { GrDocumentTest } from "react-icons/gr";
 import { MdDashboard } from "react-icons/md";
-import TestResults from "../hospitalTestResults/TestResults";
+import TestResults from "../hospitalTestResults/ViewPrescriptions";
 const sideBarItemsUpper = [
   {
     name: "Dashboard",
@@ -19,7 +14,7 @@ const sideBarItemsUpper = [
     link: "/viewstocks",
   },
   {
-    name: "Upload Test Results",
+    name: "View Prescriptions",
     icon: <GrDocumentTest size={25} />,
     link: "/uploadtest",
   },
@@ -41,7 +36,7 @@ function Sidebar() {
         </div>
         {sideBarItemsUpper.map((item, index) =>
           index === 2 ? (
-            <TestResults item={item} />
+            <TestResults key={index} item={item} />
           ) : (
             <div
               key={index}
