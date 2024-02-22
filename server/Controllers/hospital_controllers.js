@@ -5,7 +5,6 @@ const { Hospital } = require("../Models/Hospital");
 const {Patient} = require("../Models/Patient");
 const CustomError = require("../CustomError");
 
-
 const hospitalRegister = async (req, res, next) => {
     const { registrationId, name, address, password, contactNumber, emailId } =
       req.body;
