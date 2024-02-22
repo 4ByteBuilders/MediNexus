@@ -11,7 +11,7 @@ const doctorLogin = async (req, res, next) => {
     if (!isMatch) {
       throw new CustomError("Invalid Credentials", 400);
     }
-    const token = jwt.sign({ doctorId }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ _id: doctorId }, process.env.SECRET_KEY, {
       expiresIn: "2d",
     });
     res.cookie("token", token, {
@@ -37,7 +37,7 @@ const doctorRegister = async (req, res, next) => {
       degree,
     });
     await doctor.save();
-    const token = jwt.sign({ doctorId }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ _id: doctorId }, process.env.SECRET_KEY, {
       expiresIn: "2d",
     });
     res.cookie("token", token, {

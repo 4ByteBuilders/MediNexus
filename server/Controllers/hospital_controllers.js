@@ -22,7 +22,7 @@ const hospitalRegister = async (req, res, next) => {
         emailId,
       });
       await newHospital.save();
-      const token = await jwt.sign({ registrationId }, process.env.SECRET_KEY);
+      const token = await jwt.sign({ _id: registrationId }, process.env.SECRET_KEY);
       res.cookie("token", token, {httpOnly: true, secure: true});
       res
         .status(200)
@@ -37,7 +37,7 @@ const hospitalLogin = async (req, res, next) => {
         console.log(password, hospital.password);
       const passwordIsValid = await bcrypt.compare(password, hospital.password);
       if (passwordIsValid) {
-        const token = await jwt.sign({ registrationId }, process.env.SECRET_KEY);
+        const token = await jwt.sign({ _id: registrationId }, process.env.SECRET_KEY);
         res.cookie("token", token, {httpOnly: true, secure: true});
         res.status(200).send({ status: "Hospital Logged In", hospital: {...hospital, password: null}, token });
       } else {

@@ -3,13 +3,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer);
 const hospitalAuth = require("./Routes/Auth/hospitalAuth");
 const hospitalRoutes = require("./Routes/Hospital/hospital");
 const patientRoutes = require("./Routes/Patient/patient");
 const doctorAuth = require("./Routes/Auth/doctorAuth");
-
+const persistentLoginRoute = require('./Routes/PersistentLogin/persistentLogin');
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URL, {});
@@ -28,6 +29,8 @@ corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(cookieParser());
+app.use("/user", persistentLoginRoute);
 app.use("/hospital-auth", hospitalAuth);
 app.use("/doctor-auth", doctorAuth);
 app.use("/hospital", hospitalRoutes);
