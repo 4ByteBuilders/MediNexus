@@ -12,19 +12,36 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { instance as axios } from "../../lib/axiosConfig";
+import axios from "axios";
 
 export default function TestResults({ item }) {
   const [name, setName] = useState("");
   const [aadhar, setAadhar] = useState("");
   const [isLoading, setLoading] = useState(false);
+  const [patient, setPatient] = useState(null);
   const searchPatient = async () => {
     setLoading(true);
     try {
-      const firstName = name.split(' ')[0];
-      const lastName = name.split(' ')[1];
-      const res = await axios.get('/hospital/patient-lookup', { firstName, lastName })
-      console.log(res.data);
+      let firstName = name.split(' ')[0];
+      let lastName = name.split(' ')[1];
+      if (firstName === undefined)
+        return;
+      if (lastName === undefined)
+        lastName = '';
+      console.log(firstName, lastName);
+      const res = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/hospital/patient-lookup`, {
+        params: {
+          firstName,
+          lastName,
+        },
+        withCredentials: true
+      });
+      if (res.data.patients.length !== 0)
+        setPatient(res.data.patients);
+      else {
+        toast.error("No Patients found");
+        setPatient(null);
+      }
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
@@ -66,6 +83,15 @@ export default function TestResults({ item }) {
             <Input id="Aadhar" type='number' value={aadhar} onChange={() => setAadhar(event.target.value)} className="col-span-3" />
           </div>
         </div>
+        {patient && patient.map((patient, index) => (
+          <div key={index} className="flex flex-col mb-2 bg-slate-200 rounded-lg cursor-pointer">
+            <div className="p-2">
+              <div className="text-sm">Name: {patient.name}</div>
+              <div className="text-sm">Aadhar: {patient.aadhar}</div>
+              <div className="text-sm">Ph.: {patient.phone}</div>
+            </div>
+          </div>
+        ))}
         <DialogFooter>
           {isLoading ? <Button disabled>Loading...</Button> :
             <Button type="submit" onClick={searchPatient}>Search</Button>}

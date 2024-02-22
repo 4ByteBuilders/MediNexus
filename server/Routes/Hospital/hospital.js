@@ -9,9 +9,9 @@ const router = express.Router();
 router.post('/add-patient', catchAsync(protector), catchAsync(addPatient));
 
 router.get(
-    "/patient-lookup",
-    catchAsync(protector),
-    catchAsync(getPatient)
-  );
+  "/patient-lookup",
+  catchAsync(protector),
+  catchAsync(getPatient)
+);
 
 module.exports = router;
