@@ -26,10 +26,10 @@ const PatientSchema = new mongoose.Schema({
   height: String,
   weight: String,
   gender: String,
-  prescriptionIds: {
+  prescriptionIds: [{
     type: mongoose.Schema.Types.String,
     ref: "Prescription",
-  },
+  }],
 });
 
 const Patient = mongoose.model("Patient", PatientSchema);
