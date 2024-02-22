@@ -16,7 +16,6 @@ import { Button } from "../ui/button"
 import toast from "react-hot-toast"
 import { useContext } from "react"
 import { HospitalDataContext } from "@/contextAPIs/HospitalContext"
-import { useNavigation } from "react-router-dom"
 
 const hospitalSchema = z.object({
     registrationId: z.string().min(6).max(50),
