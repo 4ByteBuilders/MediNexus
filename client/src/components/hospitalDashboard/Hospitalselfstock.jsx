@@ -9,15 +9,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const Hospitalselfstock = () => {
+const Hospitalselfstock = ({ name }) => {
   return (
-    <div className="bg-white rounded-sm p-4 mt-24 mr-8">
+    <div className="bg-white rounded-sm p-4 mt-10 mr-8">
       <div className="grid h-full">
         <div>
           <h1 className="text-2xl font-semibold ml-2">Available Blood</h1>
         </div>
         <Table>
-          <TableCaption>A list of your stocks.</TableCaption>
+          <TableCaption>A list of {name} stocks.</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-1/2">Blood group</TableHead>

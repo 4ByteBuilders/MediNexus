@@ -1,8 +1,7 @@
-import React from 'react'
 import { Button } from '../ui/button'
 const Hospitaldetails = ({ hospitalData }) => {
     return (
-        <div className='bg-white rounded-sm p-4 mt-24 mr-8'>
+        <div className='bg-white rounded-sm p-4 mt-12 mr-8 w-full'>
             <div className='grid grid-row h-full'>
                 <div className='flex flex-row items-center'>
                     <div className='w-32'>
@@ -26,4 +25,4 @@ const Hospitaldetails = ({ hospitalData }) => {
     )
 }
 
-export default Hospitaldetails
+export default Hospitaldetails;
