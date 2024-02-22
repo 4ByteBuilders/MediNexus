@@ -1,5 +1,7 @@
 import React from "react";
 import { Button } from "../ui/button";
+import Patientlist from "./Patientlist";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -11,15 +13,16 @@ import {
 const Hospitalfull = () => {
   return (
     <div className="w-full grid grid-cols-3">
-      <div className="col-span-2 ml-20 m-auto flex flex-row align-center justify-center">
-        <div>
-          <input className="my-5 mr-4 px-4 py-2 placeholder-green-500 bg-white rounded-lg text-sm border border-green-400 focus:outline-none focus:border-green-600" 
+      <div className="col-span-2 ml-20 m-auto flex flex-row flex-wrap align-center justify-center">
+        <div className="ml-20">
+          <input className="my-5 mr-4 px-4 py-2 placeholder-green-500 bg-white rounded-lg text-sm border border-green-400 focus:outline-none focus:border-green-600 w-64" 
           type="text" 
           placeholder="Search patient"/>
           </div>
           <div className="m-auto">
-          <Button className='font-semibold text-1xl p-3 '>Add Patient</Button>
+          <Link to='/signup' className='font-semibold text-1xl p-3'>Add Patient</Link>
           </div>
+          <Patientlist/>
         {/* <Card>
           <CardContent>
             <button>
@@ -33,16 +36,11 @@ const Hospitalfull = () => {
       </div>
       <div className="col-span-1 m-10 mx-30">
         <Card>
-          <CardHeader>
-            <CardTitle>Card Title</CardTitle>
-            <CardDescription>Card Description</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p>Card Content</p>
+          <CardContent className="grid grid-row">
+          <Button className='font-semibold text-1xl p-3 my-4'>Upload Test Results</Button>
+          <Button className='font-semibold text-1xl p-3 my-4'>Request Stock</Button>
+          <Button className='font-semibold text-1xl p-3 my-4'>Upload Stock</Button>
           </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
         </Card>
       </div>
     </div>
