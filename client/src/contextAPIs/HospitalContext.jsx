@@ -6,6 +6,7 @@ export const HospitalDataContext = createContext();
 
 export const HospitalDataProvider = ({ children }) => {
   const [hospitalData, setHospitalData] = useState(null);
+  const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -15,9 +16,13 @@ export const HospitalDataProvider = ({ children }) => {
       } catch (error) {
         console.log(error);
       }
+      setLoading(false);
     }
     checkAuth();
   }, []);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <HospitalDataContext.Provider value={{ hospitalData, setHospitalData }}>
       {children}
