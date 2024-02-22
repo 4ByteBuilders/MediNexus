@@ -22,8 +22,8 @@ const hospitalRegister = async (req, res, next) => {
         emailId,
       });
       await newHospital.save();
-      const token = await jwt.sign({ _id: registrationId }, process.env.SECRET_KEY);
-      res.cookie("token", token, {httpOnly: true, secure: true});
+      const token = jwt.sign({ _id: registrationId }, process.env.SECRET_KEY);
+      res.cookie("token", token, {httpOnly: true, maxAge: 2 * 24 * 60 * 60 * 1000,});
       res
         .status(200)
         .send({ status: "Hospital Registered", newHospital: {...newHospital, password: null}, token });
@@ -37,8 +37,8 @@ const hospitalLogin = async (req, res, next) => {
         console.log(password, hospital.password);
       const passwordIsValid = await bcrypt.compare(password, hospital.password);
       if (passwordIsValid) {
-        const token = await jwt.sign({ _id: registrationId }, process.env.SECRET_KEY);
-        res.cookie("token", token, {httpOnly: true, secure: true});
+        const token = jwt.sign({ _id: registrationId }, process.env.SECRET_KEY);
+        res.cookie("token", token, {httpOnly: true, maxAge: 2 * 24 * 60 * 60 * 1000,});
         res.status(200).send({ status: "Hospital Logged In", hospital: {...hospital, password: null}, token });
       } else {
         throw new CustomError("Incorrect Hospital ID or Password", 401);
