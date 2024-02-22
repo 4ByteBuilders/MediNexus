@@ -16,15 +16,14 @@ const sideBarItemsUpper = [
   {
     name: "View Prescriptions",
     icon: <GrDocumentTest size={25} />,
-    link: "/uploadtest",
+    link: "/viewprescriptions",
   },
 ];
 function Sidebar() {
   return (
     <div
       className="fixed left-0 top-0 h-screen w-[200px] flex flex-col
-         justify-between bg-secondary"
-    >
+         justify-between bg-secondary">
       <div>
         <div className="flex flex-row gap-2 items-center justify-center mb-12 w-full p-3 transition-colors duration-300 cursor-pointer">
           <div className="w-14 mr-2">
@@ -40,6 +39,9 @@ function Sidebar() {
           ) : (
             <div
               key={index}
+              onClick={() => {
+                window.location.pathname = item.link;
+              }}
               className={
                 window.location.pathname === item.link
                   ? "flex flex-row gap-2 items-center justify-start w-[195px] p-3 transition-colors duration-300 cursor-pointer bg-primary text-white rounded-md mx-auto"

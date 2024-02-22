@@ -9,6 +9,7 @@ import Hospitalselfstock from "./Hospitalselfstock";
 
 const Hospitalfull = () => {
   const { hospitalData } = useContext(HospitalDataContext);
+  console.log(hospitalData);
   return (
     <div className="w-full grid grid-cols-3">
       <Sidebar />

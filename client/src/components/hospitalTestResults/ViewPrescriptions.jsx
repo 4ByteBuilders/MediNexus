@@ -36,8 +36,15 @@ export default function TestResults({ item }) {
         },
         withCredentials: true
       });
-      if (res.data.patients.length !== 0)
-        setPatient(res.data.patients);
+      console.log(res.data);
+      if (res.data.patients.length !== 0) {
+        const data = res.data.patients;
+        data.map((patient) => {
+          patient.aadhar = patient._id.slice(0, 4);
+          return patient;
+        });
+        setPatient(data);
+      }
       else {
         toast.error("No Patients found");
         setPatient(null);
@@ -88,7 +95,7 @@ export default function TestResults({ item }) {
             <div className="p-2">
               <div className="text-sm">Name: {patient.name}</div>
               <div className="text-sm">Aadhar: {patient.aadhar}</div>
-              <div className="text-sm">Ph.: {patient.phone}</div>
+              <div className="text-sm">Ph.: {patient.phoneNumber}</div>
             </div>
           </div>
         ))}

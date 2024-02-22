@@ -1,10 +1,8 @@
-import React from "react";
+
 import Sidebar from "../navbar/sideBar";
 import Hospitalselfstock from "../hospitalDashboard/Hospitalselfstock";
 import Hospitalselfstockorgans from "./Hospitalselfstockorgans";
 import { useState } from "react";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 const Fullstocks = () => {
   const [hospitals, sethospital] = useState([
     {
