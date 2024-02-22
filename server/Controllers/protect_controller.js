@@ -15,8 +15,17 @@ const protector = async(req,res,next)=>{
     }
     const userId = decoded._id;
     const doctor = await Doctor.findById(userId);
+    if(doctor){
+        req.isDoctor=true;
+    }
     const hospital = await Hospital.findById(userId);
+    if(hospital){
+        req.isHospital=true;
+    }
     const patient = await Patient.findById(userId);
+    if(patient){
+        req.isPatient=true;
+    }
     if (doctor || hospital || patient) {
         req.user=doctor||hospital||patient;
         next();
