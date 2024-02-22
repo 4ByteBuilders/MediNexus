@@ -6,6 +6,9 @@ const { Patient } = require("../Models/Patient");
 
 const protector = async(req,res,next)=>{
     const token = req.cookies.token;
+    console.log("*******");
+    console.log(token);
+    console.log("*******");
     if(!token){
         throw new CustomError("Unauthorized Access", 401);
     }

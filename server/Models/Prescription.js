@@ -20,6 +20,11 @@ const PrescriptionSchema = new Schema({
         ref: 'Doctor',
         required: true,
     },
+    createdbyHospital: {
+        type: Schema.Types.String,
+        ref: 'Hospital',
+        required: true,
+    },
     disease: {
         type: String,
     },
@@ -27,6 +32,10 @@ const PrescriptionSchema = new Schema({
         type: Schema.Types.String,
         ref: 'Test'
     }],
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+    },
     doctorsOpinion: {
         type: String,
     },

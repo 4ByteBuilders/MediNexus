@@ -1,6 +1,7 @@
 const uuid = require('uuid');
 const Prescription = require("../Models/Prescription");
 const CustomError = require("../CustomError");
+const { Patient } = require('../Models/Patient');
 
 const createPrescription = async(req,res,next)=>{
     let {patientName, patientId, doctorId} = req.body;
@@ -8,6 +9,7 @@ const createPrescription = async(req,res,next)=>{
     if(isHospital === false){
         throw new CustomError("Unauthorized Access", 401);
     }
+    const hospitalId = req.user._id;
     patientName = patientName.toLowerCase();
     const prescriptionId = uuid.v4();
     const newPrescription = new Prescription({
@@ -15,6 +17,7 @@ const createPrescription = async(req,res,next)=>{
         patientName,
         patientId,
         doctorId: doctorId,
+        createdbyHospital: hospitalId,
     });
     await newPrescription.save();
     res.status(200).send({status: "Prescription Created", newPrescription});    
@@ -42,7 +45,21 @@ const doctorCheckup = async(req,res,next)=>{
     }
 }
 
+const getPrescription = async(req,res,next)=>{
+    let {patient_id} = req.params;
+    //dob ka / ko underscore karke bhejega front end se
+    patient_id = patient_id.replace(/_/g, '/');
+    const patient = await Patient.findById(patient_id).populate('prescriptionIds');
+    if(!patient){
+        throw new CustomError("Patient Not Found", 404);
+    }
+    console.log("Patient: ", patient);
+    console.log("Patient prescriptions: ", patient.prescriptionIds);
+    res.status(200).send({status: "Patient Prescriptions", prescriptions: patient.prescriptionIds});
+}
+
 module.exports = {
     createPrescription,
     doctorCheckup,
+    getPrescription,
 }

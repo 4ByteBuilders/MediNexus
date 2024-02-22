@@ -3,7 +3,9 @@ const { protector } = require("../../Controllers/protect_controller");
 const { catchAsync } = require("../../catchAsync");
 const router = express.Router();
 
-const { createPrescription, doctorCheckup } = require("../../Controllers/prescription_controllers");
+const { createPrescription, doctorCheckup, getPrescription } = require("../../Controllers/prescription_controllers");
+
+router.get("/:patient_id/get-prescription", protector, catchAsync(getPrescription));
 
 router.post("/create", protector, catchAsync(createPrescription));
 
