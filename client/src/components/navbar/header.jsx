@@ -24,11 +24,12 @@ export function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
   return (
     <div
       className={
-        window.location.pathname == "/hospitalhome" || window.location.pathname == "/viewstocks"
+        window.location.pathname === "/hospitalhome" ||
+          window.location.pathname === "/viewstocks" ||
+          window.location.pathname === "/skeleton"
           ? "hidden"
           : "relative w-full bg-background font-lato z-10"
       }

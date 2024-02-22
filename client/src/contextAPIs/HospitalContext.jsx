@@ -15,10 +15,10 @@ export const HospitalDataProvider = ({ children }) => {
     const checkAuth = async () => {
       try {
         const res = await axios.get("/user/fetch-data");
-        console.log(res.data);
         setHospitalData(res.data.user);
       } catch (error) {
         console.log(error);
+        toast.error("Failed to fetch data");
       }
       setLoading(false);
     }
@@ -40,5 +40,5 @@ export const HospitalDataProvider = ({ children }) => {
 };
 
 HospitalDataProvider.propTypes = {
-  children: PropType.node.isRequired
+  children: PropType.node.isRequired,
 };
