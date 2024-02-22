@@ -1,32 +1,38 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react'
+import React from "react";
+import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 
 const menuItems = [
   {
-    name: 'Home',
-    href: '#',
+    name: "Home",
+    href: "#",
   },
   {
-    name: 'About',
-    href: '#',
+    name: "About",
+    href: "#",
   },
   {
-    name: 'Contact',
-    href: '#',
+    name: "Contact",
+    href: "#",
   },
-]
+];
 
 export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
-    <div className={window.location.pathname == '/hospitalhome' ? "hidden" : "relative w-full bg-background font-lato z-10"}>
+    <div
+      className={
+        window.location.pathname == "/hospitalhome" || "/viewstocks"
+          ? "hidden"
+          : "relative w-full bg-background font-lato z-10"
+      }
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
         <div className="inline-flex items-center space-x-2">
           <span>
@@ -139,5 +145,5 @@ export function Navbar() {
         )}
       </div>
     </div>
-  )
+  );
 }

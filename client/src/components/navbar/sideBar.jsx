@@ -16,7 +16,7 @@ const sideBarItemsUpper = [
   {
     name: "View Stock",
     icon: <GiHeartOrgan size={25} />,
-    link: "/viewstock",
+    link: "/viewstocks",
   },
   {
     name: "Upload Test Results",
@@ -27,7 +27,7 @@ const sideBarItemsUpper = [
 function Sidebar() {
   return (
     <div
-      className="fixed left-0 top-0 h-screen w-52 flex flex-col
+      className="fixed left-0 top-0 h-screen w-[200px] flex flex-col
          justify-between bg-secondary"
     >
       <div>
@@ -47,8 +47,8 @@ function Sidebar() {
               key={index}
               className={
                 window.location.pathname === item.link
-                  ? "flex flex-row gap-2 items-center justify-start w-full p-3 transition-colors duration-300 cursor-pointer bg-primary"
-                  : "flex flex-row gap-2 items-center justify-start w-full p-3 transition-colors duration-300 cursor-pointer hover:bg-slate-200 "
+                  ? "flex flex-row gap-2 items-center justify-start w-[195px] p-3 transition-colors duration-300 cursor-pointer bg-primary text-white rounded-md mx-auto"
+                  : "flex flex-row gap-2 items-center justify-start w-[195px] p-3 transition-colors duration-300 cursor-pointer hover:bg-slate-200 rounded-md mx-auto"
               }
             >
               <div className="">{item.icon}</div>

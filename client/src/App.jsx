@@ -7,9 +7,9 @@ import LandingPage from "./components/landingpage/landingpage";
 import { Navbar } from "./components/navbar/header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HospitalDataProvider } from "./contextAPIs/HospitalContext";
+import Fullstocks from "./components/viewStocks/Fullstocks";
 
 export default function App() {
-
   return (
     <BrowserRouter>
       <Navbar />
@@ -25,11 +25,15 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/hospitalhome" element={
-          <HospitalDataProvider>
-            <Hospitalfull />
-          </HospitalDataProvider>
-        } />
+        <Route path="/viewstocks" element={<Fullstocks />} />
+        <Route
+          path="/hospitalhome"
+          element={
+            <HospitalDataProvider>
+              <Hospitalfull />
+            </HospitalDataProvider>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
