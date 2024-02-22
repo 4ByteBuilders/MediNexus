@@ -49,7 +49,7 @@ const hospitalLogin = async (req, res, next) => {
   }
 
 const addPatient = async (req, res) => {
-    let { aadhar, firstName, lastName, dob } = req.body;
+    let { aadhar, firstName, lastName, dob} = req.body;
     firstName = firstName.toLowerCase();
     lastName = lastName.toLowerCase();
     const patientId = `${aadhar}-${firstName}-${lastName}-${dob}`;
@@ -57,8 +57,9 @@ const addPatient = async (req, res) => {
     if (patient) {
       res.status(400).send({ status: "Patient already exists!!", patient });
     } else {
-      const { address, phoneNumber, bloodType, height, weight, gender } =
-        req.body;
+      const { address, phoneNumber, bloodType, height, weight, gender, password} =
+      req.body;
+      const hashedPassword = await bcrypt.hash(password, 12);
       const newPatient = new Patient({
         _id: patientId,
         name: `${firstName} ${lastName}`,
@@ -68,6 +69,7 @@ const addPatient = async (req, res) => {
         height,
         weight,
         gender,
+        password: hashedPassword,
       });
       await newPatient.save();
       res.status(200).send({ status: "Patient Registered", newPatient });
@@ -75,16 +77,16 @@ const addPatient = async (req, res) => {
   }
 
   const getPatient = async (req, res, next) => {
-    let { aadhar, firstName, lastName, dob } = req.body;
+    let { firstName, lastName } = req.body;
     firstName = firstName.toLowerCase();
     lastName = lastName.toLowerCase();
-    const patientId = `${aadhar}-${firstName}-${lastName}-${dob}`;
-    const patient = await Patient.findOne({ _id: patientId });
-    if (patient) {
-      res.status(200).send({ status: "Patient Found", patient });
+    const patientName = `${firstName} ${lastName}`;
+    const patients = await Patient.find({ name: patientName });
+    if (patients) {
+      res.status(200).send({ status: "Patient(s) Found", patients });
     } else {
       res.status(404).send({
-        status: "Patient Not Found, kindly register the patient. Click Here:",
+        status: "No Patients found, kindly register the patient. Click Here:",
       });
     }
   }
