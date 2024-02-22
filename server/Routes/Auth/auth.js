@@ -1,7 +1,10 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const { Doctor } = require("../../Models/Doctor");
+const { Hospital } = require("../../Models/Hospital");
 const { Patient } = require("../../Models/Patient");
 const { catchAsync } = require("../../catchAsync");
+const CustomError = require("../../CustomError");
 
 const router = express.Router();
 
@@ -48,5 +51,29 @@ router.post("/patient/register", async (req, res) => {
     res.status(200).send({ status: "Patient Registered", newPatient });
   }
 });
+
+router.post(
+  "hospital/register",
+  catchAsync(async (req, res) => {
+    const { registrationId, name, address } = req.body;
+    const hospital = await Hospital.findOne({ _id: registrationId });
+    if (hospital) {
+      throw new CustomError("Hospital already exists!!", 400);
+    } else {
+      const newHospital = new Hospital({
+        _id: registrationId,
+        name,
+        address,
+      });
+      await newHospital.save();
+      const token = await jwt.sign({ registrationId }, process.env.SECRET_KEY);
+      res
+        .status(200)
+        .send({ status: "Hospital Registered", newHospital, token });
+    }
+  })
+);
+
+router.post("/hospital/login", async (req, res) => {});
 
 module.exports = router;
