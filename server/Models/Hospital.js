@@ -16,8 +16,11 @@ const HospitalSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
+    select: false,
   },
   doctors: [String],
+  contactNumber: String,
+  emailId: String,
 });
 
 const Hospital = mongoose.model("Hospital", HospitalSchema);

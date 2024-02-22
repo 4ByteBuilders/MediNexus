@@ -8,7 +8,8 @@ const router = express.Router();
 router.post(
   "/register",
   catchAsync(async (req, res) => {
-    const { registrationId, name, address, password } = req.body;
+    const { registrationId, name, address, password, contactNumber, emailId } =
+      req.body;
     const hospital = await Hospital.findOne({ _id: registrationId });
     if (hospital) {
       throw new CustomError("Hospital already exists!!", 400);
@@ -19,6 +20,8 @@ router.post(
         name,
         address,
         password: hashedPassword,
+        contactNumber,
+        emailId,
       });
       await newHospital.save();
       const token = await jwt.sign({ registrationId }, process.env.SECRET_KEY);
