@@ -1,3 +1,5 @@
+import { Toaster } from "react-hot-toast";
+import Singup from "./components/authentication/Signup";
 import About from "./components/devPages/About";
 import Contact from "./components/devPages/Contact";
 import Hospitalfull from "./components/hospitalDashboard/Hospitalfull";
@@ -8,8 +10,13 @@ export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/singup" element={<Singup />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/hospitalhome" element={<Hospitalfull />} />

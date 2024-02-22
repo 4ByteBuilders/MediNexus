@@ -14,10 +14,10 @@ function First() {
     }
     useEffect(() => {
         const el = document.getElementById("typewriter");
-
         let phraseIndex = 0;
+        const loop = true;
         const writeLoop = async () => {
-            while (true) {
+            while (loop) {
                 const word = phrases[phraseIndex];
                 for (let i = 0; i < word.length; i++) {
                     el.innerText = word.substring(0, i + 1);
@@ -47,7 +47,7 @@ function First() {
                     <span id="typewriter" className="text-green-950 font-extrabold">Bridging healthcare</span>
                     <span id="cursor">|</span>
                 </div>
-                <div className="pt-2">
+                <div className="pt-2" >
                     <Button className='font-semibold text-lg p-6'>Join now</Button>
                 </div>
             </div>

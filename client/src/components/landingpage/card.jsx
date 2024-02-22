@@ -1,4 +1,5 @@
 import Reveal from "../framerMotion/Reveal"
+import PropTypes from 'prop-types';
 
 function Card({ imglink, title, description }) {
     return (
@@ -19,5 +20,11 @@ function Card({ imglink, title, description }) {
         </div>
     )
 }
+
+Card.propTypes = {
+    imglink: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired
+};
 
 export default Card
