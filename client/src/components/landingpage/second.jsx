@@ -1,3 +1,5 @@
+
+import Reveal from "../framerMotion/Reveal";
 import Card from "./card";
 
 const items = [
@@ -24,8 +26,11 @@ function Second() {
   return (
     <>
       <div className="grid place-items-center">
-        <h1 className="text-2xl font-bold">Why Nexus?</h1>
+        <Reveal>
+          <h1 className="text-2xl font-bold">Why Nexus?</h1>
+        </Reveal>
       </div>
+
       <div className="grid grid-cols-3 place-items-center gap-x-20 px-20 ">
         {items.map((item, index) => (
           <Card

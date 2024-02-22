@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Button } from "../ui/button";
+import Reveal from "../framerMotion/Reveal";
 
 const phrases = [
     'Bridging healthcare',
@@ -35,12 +36,14 @@ function First() {
 
     }, [])
     return (
-        <div className="grid grid-cols-2 place-items-center h-full">
+        <div className="grid grid-cols-2 place-items-center h-screen">
             <div className="flex flex-col gap-2 text-4xl font-bold">
                 <div>
-                    <h1>
-                        Your Nexus to Seamless Healthcare
-                    </h1>
+                    <Reveal>
+                        <h1>
+                            Your Nexus to Seamless Healthcare
+                        </h1>
+                    </Reveal>
                     <span id="typewriter" className="text-green-950 font-extrabold">Bridging healthcare</span>
                     <span id="cursor">|</span>
                 </div>
