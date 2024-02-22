@@ -1,7 +1,7 @@
 
 function Card({ imglink, title, description}) {
     return (
-        <div className="w-full flex flex-col  items-center justify-center m-4 bg-gradient-to-t from-green-100 to-green-200 rounded-md min-h-72">
+        <div className="w-full flex flex-col items-center justify-center m-4 bg-gradient-to-t from-green-100 to-green-200 rounded-xl min-h-72">
             <div className="w-1/4 grid place-items-center py-3">
                 <img src={imglink}/>
             </div>

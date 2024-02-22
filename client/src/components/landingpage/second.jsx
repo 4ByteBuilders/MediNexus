@@ -22,7 +22,7 @@ const items = [
 
 function Second() {
   return (
-    <>
+    <div className="bg-green-700">
       <div className="grid place-items-center">
         <h1 className="text-2xl font-bold">Why Nexus?</h1>
       </div>
@@ -36,7 +36,7 @@ function Second() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
