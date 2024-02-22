@@ -1,24 +1,14 @@
 import { Toaster } from "react-hot-toast";
-import Singup from "./components/authentication/Signup";
-import About from "./components/devPages/About";
-import Contact from "./components/devPages/Contact";
+import Signup from "./components/authentication/Signup";
+import About from "./components/devpages/About";
+import Contact from "./components/devpages/Contact";
 import Hospitalfull from "./components/hospitalDashboard/Hospitalfull";
-import LandingPage from "./components/landingPage/landingpage";
+import LandingPage from "./components/landingpage/landingpage";
 import { Navbar } from "./components/navbar/header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HospitalDataProvider } from "./contextAPIs/HospitalContext";
 
 export default function App() {
-
-  const [welcome, setWelcome] = useState("Loading...");
-
-  useEffect(()=>{
-    const fetchWelcomeMessage = async ()=>{
-      const res = await axios.get('/');
-      console.log(res.data);
-      setWelcome(res.data.message);
-    }
-    fetchWelcomeMessage();
-  }, []);
 
   return (
     <BrowserRouter>
@@ -26,13 +16,24 @@ export default function App() {
       <Toaster
         position="top-center"
         reverseOrder={false}
+        toastOptions={{
+          duration: 2000,
+        }}
       />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/singup" element={<Singup />} />
+        <Route path="/signup" element={
+          <HospitalDataProvider>
+            <Signup />
+          </HospitalDataProvider>
+        } />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/hospitalhome" element={<Hospitalfull />} />
+        <Route path="/hospitalhome" element={
+          <HospitalDataProvider>
+            <Hospitalfull />
+          </HospitalDataProvider>
+        } />
       </Routes>
     </BrowserRouter>
   );
