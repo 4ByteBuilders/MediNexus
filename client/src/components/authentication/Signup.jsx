@@ -1,7 +1,7 @@
-import * as z from "zod"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { instance as axios } from "../../lib/axiosConfig"
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { instance as axios } from "../../lib/axiosConfig";
 import {
     Form,
     FormControl,
@@ -10,12 +10,12 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Button } from "../ui/button"
-import toast from "react-hot-toast"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "../ui/button";
+import toast from "react-hot-toast";
 import { useContext, useState } from "react"
-import { HospitalDataContext } from "@/contextAPIs/HospitalContext"
+import { HospitalDataContext } from "@/contextAPIs/HospitalContext";
 import SwitchComponent from "./SwitchComponent"
 
 
@@ -26,7 +26,7 @@ const hospitalSchema = z.object({
     email: z.string().email(),
     password: z.string().min(6).max(50),
     contactNumber: z.string().min(10).max(10),
-})
+});
 
 const initialValues = {
     registrationId: "",
@@ -35,7 +35,7 @@ const initialValues = {
     email: "",
     password: "",
     contactNumber: "",
-}
+};
 
 export default function Signup() {
     const { setHospitalData } = useContext(HospitalDataContext);
@@ -166,10 +166,9 @@ export default function Signup() {
                         />
 
                         <Button type="submit">Submit</Button>
-
                     </form>
                 </Form>
             </div>
         </div>
-    )
+    );
 }

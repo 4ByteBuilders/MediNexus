@@ -1,4 +1,3 @@
-
 import Reveal from "../framerMotion/Reveal";
 import Card from "./card";
 
@@ -17,8 +16,9 @@ const items = [
   },
   {
     title: "Efficiency Enhancing",
-    description: "Optimized workflows and automated tasks for streamlined communication and resource allocation.",
-    imglink: "/icons/centralized.png",
+    description:
+      "Optimized workflows and automated tasks for streamlined communication and resource allocation.",
+    imglink: "/icons/efficiency.png",
   },
 ];
 

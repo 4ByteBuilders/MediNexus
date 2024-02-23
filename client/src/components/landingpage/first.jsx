@@ -36,7 +36,7 @@ function First() {
 
     }, [])
     return (
-        <div className="grid grid-cols-2 place-items-center h-screen">
+        <div className="grid grid-cols-2 place-items-center h-screen bg-gradient-to-t from-green-300 to-white">
             <div className="flex flex-col gap-2 text-4xl font-bold">
                 <div>
                     <Reveal>

@@ -13,9 +13,26 @@ const TestSchema = mongoose.Schema({
         type: Date,
         required: true,
     },
-    testResult: {
+    patientName: {
         type: String,
         required: true,
+    },
+    patientId: {
+        type: mongoose.Schema.Types.String,
+        ref: 'Patient',
+        required: true,
+    },
+    doctorId: {
+        type: mongoose.Schema.Types.String,
+        ref: 'Doctor',
+        required: true,
+    },
+    doctorName: {
+        type: String,
+        required: true,
+    },
+    testResult: {
+        type: String,
     }, // url of the cloudinary file
     prescriptionId: {
         type: mongoose.Schema.Types.String,
@@ -26,4 +43,4 @@ const TestSchema = mongoose.Schema({
 
 const Test = mongoose.model('Test', TestSchema);
 
-module.exports = {Test};
+module.exports = Test;

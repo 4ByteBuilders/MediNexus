@@ -5,6 +5,10 @@ const PatientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -22,10 +26,10 @@ const PatientSchema = new mongoose.Schema({
   height: String,
   weight: String,
   gender: String,
-  prescriptionIds: {
+  prescriptionIds: [{
     type: mongoose.Schema.Types.String,
     ref: "Prescription",
-  },
+  }],
 });
 
 const Patient = mongoose.model("Patient", PatientSchema);
