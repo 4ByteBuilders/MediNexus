@@ -14,9 +14,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "../ui/button"
 import toast from "react-hot-toast"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { HospitalDataContext } from "@/contextAPIs/HospitalContext"
-import { useNavigation } from "react-router-dom"
+import SwitchComponent from "./SwitchComponent"
+
 
 const hospitalSchema = z.object({
     registrationId: z.string().min(6).max(50),
@@ -38,6 +39,7 @@ const initialValues = {
 
 export default function Signup() {
     const { setHospitalData } = useContext(HospitalDataContext);
+    const [user, setUser] = useState('Hospital');
     const form = useForm({
         resolver: zodResolver(hospitalSchema),
         defaultValues: initialValues,
@@ -45,10 +47,11 @@ export default function Signup() {
 
     async function onSubmit(values) {
         try {
+
             const res = await axios.post("/hospital-auth/register", values);
             console.log(res)
             setHospitalData(res.data._doc);
-            toast.success("Hospital registered successfully")
+            toast.success(`${user} registered successfully`); x
             setTimeout(() => {
                 window.location.href = "/hospitalhome"
             }, 1500);
@@ -62,6 +65,7 @@ export default function Signup() {
         <div className="flex items-center justify-center">
             <div className="flex flex-col gap-3 p-5 w-1/2">
                 <h1 className="text-3xl font-bold">Signup</h1>
+                <SwitchComponent user={user} setUser={setUser} />
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <FormField
