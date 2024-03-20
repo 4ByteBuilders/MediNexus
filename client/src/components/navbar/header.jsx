@@ -28,8 +28,12 @@ export function Navbar() {
     <div
       className={
         window.location.pathname === "/hospitalhome" ||
-          window.location.pathname === "/viewstocks" ||
-          window.location.pathname === "/patienthome"
+        window.location.pathname === "/viewstocks" ||
+        window.location.pathname === "/patienthome" ||
+        window.location.pathname === "/doctorhome" ||
+        window.location.pathname === "/viewstocks" ||
+        window.location.pathname === "/patienthome" ||
+        window.location.pathname === "/prescriptions"
           ? "hidden"
           : "relative w-full bg-background font-lato z-10"
       }
