@@ -11,12 +11,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { instance as axios } from "../../lib/axiosConfig";
+import toast from "react-hot-toast";
 
 const patientSchema = z.object({
   firstName: z.string().min(2).max(50),
   lastName: z.string().min(2).max(50),
   dob: z.string().min(2).max(50),
-  aadharNumber: z.string().min(4).max(4),
+  aadhar: z.string().min(4).max(4),
   password: z.string().min(6).max(50),
 });
 
@@ -24,7 +26,7 @@ const initialValuesPatient = {
   firstName: "",
   lastName: "",
   dob: "",
-  aadharNumber: "",
+  aadhar: "",
   password: "",
 };
 
@@ -37,17 +39,17 @@ function PatientLogin() {
 
   async function onSubmit(values) {
     console.log(values);
-    // try {
-    //   const res = await axios.post("/hospital-auth/login", values);
-    //   console.log(res);
-    //   toast.success("Hospital logged in successfully");
-    //   setTimeout(() => {
-    //     window.location.href = "/hospitalhome";
-    //   }, 1500);
-    // } catch (error) {
-    //   console.log(error);
-    //   toast.error(error.response.data.message);
-    // }
+    try {
+      const res = await axios.post("/patient-auth/login", values);
+      console.log(res);
+      toast.success("Hospital logged in successfully");
+      setTimeout(() => {
+        window.location.href = "/hospitalhome";
+      }, 1500);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
   }
 
   return (
@@ -55,7 +57,7 @@ function PatientLogin() {
       <form onSubmit={formPatient.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={formPatient.control}
-          name="aadharNumber"
+          name="aadhar"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-md">Last Four Aadhar Digits</FormLabel>

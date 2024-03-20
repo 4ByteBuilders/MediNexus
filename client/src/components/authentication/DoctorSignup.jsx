@@ -37,7 +37,7 @@ function DoctorSignup() {
     });
     async function onSubmit(values) {
         try {
-            const res = await axios.post("/hospital-auth/register", values);
+            const res = await axios.post("/doctor-auth/register", values);
             console.log(res);
             toast.success(`Doctor registered successfully`);
             setTimeout(() => {
