@@ -3,8 +3,6 @@ import Patientlist from "./Patientlist";
 import { HospitalDataContext } from "@/contextAPIs/HospitalContext";
 import { Input } from "../ui/input";
 import Sidebar from "../navbar/sideBar";
-import Hospitaldetails from "./Hospitaldetails";
-import Hospitalselfstock from "./Hospitalselfstock";
 import { GiHeartOrgan } from "react-icons/gi";
 import { GrDocumentTest } from "react-icons/gr";
 import { MdDashboard } from "react-icons/md";
@@ -28,6 +26,7 @@ const sideBarItemsUpper = [
     link: "/viewprescriptions",
   },
 ];
+
 const Hospitalfull = () => {
   const [values, setValues] = useState({
     firstName: "",
@@ -35,13 +34,13 @@ const Hospitalfull = () => {
     dob: "",
     aadhar: "",
   });
-
-  const { hospitalData } = useContext(HospitalDataContext);
+  const [patient, setPatient] = useState(null);
+  // const { hospitalData } = useContext(HospitalDataContext);
 
   return (
-    <div className="w-full grid grid-cols-3">
+    <div className="flex flex-col ml-16 mr-8">
       <Sidebar items={sideBarItemsUpper} />
-      <div className="col-span-2  m-auto flex flex-row flex-wrap align-center justify-center w-10/12 mx-20">
+      <div className="flex flex-row ">
         {/* search patient and patient details component */}
         <div className="pl-20 ml-20 mt-10 w-full">
           <div className="flex flex-col gap-5 mb-6">
@@ -91,14 +90,19 @@ const Hospitalfull = () => {
               <SearchResults
                 item={{ icon: <IoMdSearch />, name: "Search" }}
                 values={values}
+                patient={patient}
+                setPatient={setPatient}
               />
             </div>
           </div>
+          {patient && (
+            <p>
+              {patient.name} {patient.selectedDoctorName}
+            </p>
+          )}
           <Patientlist />
-          <Hospitaldetails hospitalData={hospitalData} />
         </div>
       </div>
-      <Hospitalselfstock />
     </div>
   );
 };

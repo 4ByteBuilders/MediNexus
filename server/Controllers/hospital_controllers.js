@@ -37,7 +37,7 @@ const hospitalRegister = async (req, res, next) => {
       .status(200)
       .send({
         status: "Hospital Registered",
-        newHospital: {...newHospital, password: null},
+        newHospital: { ...newHospital, password: null },
         token,
       });
   }
@@ -129,7 +129,7 @@ const getPatient = async (req, res) => {
 };
 
 const getDoctors = async (req, res) => {
-  let { speciality, doctorName } = req.body;
+  let { speciality, doctorName } = req.query;
   doctorName = doctorName.toLowerCase();
   speciality = speciality.toLowerCase();
 
@@ -140,7 +140,7 @@ const getDoctors = async (req, res) => {
 
     const filteredDoctors = [];
 
-    for(let doctor of myDoctors){
+    for (let doctor of myDoctors) {
       const docName = doctor.name.toLowerCase();
       const docSpec = doctor.speciality.toLowerCase();
       if (docName.includes(doctorName) && docSpec.includes(speciality)) {
@@ -148,7 +148,13 @@ const getDoctors = async (req, res) => {
       }
     }
 
-    res.status(200).send({ status: "Doctors Found", filteredDoctors });
+    if (filteredDoctors.isEmpty) {
+      res.status(200).send({ status: "No Doctors found" });
+    } else {
+      res.status(200).send({ status: "Doctors Found", filteredDoctors });
+    }
+  } else {
+    res.status(401).send({ status: "Unauthorized" });
   }
 };
 
