@@ -47,6 +47,6 @@ const doctorRegister = async (req, res) => {
 }
 
 module.exports = {
-  doctorLogin,
+  doctorLogin,  
   doctorRegister,
 }

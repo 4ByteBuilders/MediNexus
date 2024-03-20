@@ -5,9 +5,10 @@ const { Hospital } = require("../Models/Hospital");
 const Patient = require("../Models/Patient");
 const CustomError = require("../CustomError");
 const Prescription = require("../Models/Prescription");
+const Doctor = require("../Models/Doctor");
 
 const hospitalRegister = async (req, res, next) => {
-  const { registrationId, name, address, password, contactNumber, emailId } =
+  const { registrationId, name, address, password, contactNumber, emailId, doctors } =
     req.body;
   const hospital = await Hospital.findOne({ _id: registrationId });
   if (hospital) {
@@ -21,6 +22,7 @@ const hospitalRegister = async (req, res, next) => {
       password: hashedPassword,
       contactNumber,
       emailId,
+      doctors
     });
     await newHospital.save();
     const token = jwt.sign({ _id: registrationId }, process.env.SECRET_KEY);
@@ -35,7 +37,7 @@ const hospitalRegister = async (req, res, next) => {
       .status(200)
       .send({
         status: "Hospital Registered",
-        newHospital: { ...newHospital, password: null },
+        newHospital: {...newHospital, password: null},
         token,
       });
   }
@@ -127,25 +129,26 @@ const getPatient = async (req, res) => {
 };
 
 const getDoctors = async (req, res) => {
-  let { speciality, doctorName } = req.query;
-  doctorName = new RegExp(doctorName, 'i'); // case-insensitive pattern matching
-  speciality = new RegExp(speciality, 'i'); // case-insensitive pattern matching
+  let { speciality, doctorName } = req.body;
+  doctorName = doctorName.toLowerCase();
+  speciality = speciality.toLowerCase();
 
   if (req.isHospital) {
     const hospitalId = req.user._id;
-    const hospital = await Hospital.findById(hospitalId).populate({
-      path: 'doctors',
-      match: {
-        name: { $regex: doctorName },
-        speciality: { $regex: speciality }
+    const hospital = await Hospital.findById(hospitalId).populate("doctors");
+    const myDoctors = hospital.doctors;
+
+    const filteredDoctors = [];
+
+    for(let doctor of myDoctors){
+      const docName = doctor.name.toLowerCase();
+      const docSpec = doctor.speciality.toLowerCase();
+      if (docName.includes(doctorName) && docSpec.includes(speciality)) {
+        filteredDoctors.push(doctor);
       }
-    });
+    }
 
-    const doctors = hospital.doctors.filter(doc => doc); // filter out nulls
-
-    res.status(200).send({ doctors });
-  } else {
-    res.status(401).send({ message: "Unauthorized" });
+    res.status(200).send({ status: "Doctors Found", filteredDoctors });
   }
 };
 
