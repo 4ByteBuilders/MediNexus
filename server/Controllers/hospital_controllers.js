@@ -2,7 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { Hospital } = require("../Models/Hospital");
-const { Patient } = require("../Models/Patient");
+const Patient  = require("../Models/Patient");
 const CustomError = require("../CustomError");
 const Prescription = require("../Models/Prescription");
 
