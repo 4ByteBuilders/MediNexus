@@ -35,9 +35,9 @@ const Fullstocks = () => {
       link: "/viewstocks",
     },
     {
-      name: "View Prescriptions",
+      name: "Upload Test Results",
       icon: <GrDocumentTest size={25} />,
-      link: "/viewprescriptions",
+      link: "/uploadtests",
     },
   ];
   return (
