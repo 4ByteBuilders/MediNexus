@@ -15,7 +15,7 @@ router.get(
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     const userId = decoded._id;
     // Now you can use the userId...
-    const doctor = await Doctor.findById(userId);
+    const doctor = await Doctor.findById(userId).populate("pendingPrescriptions");
     const hospital = await Hospital.findById(userId);
     const patient = await Patient.findById(userId);
     if (doctor || hospital || patient) {
