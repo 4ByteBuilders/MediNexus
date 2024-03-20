@@ -1,10 +1,10 @@
 const uuid = require('uuid');
 const Prescription = require("../Models/Prescription");
 const CustomError = require("../CustomError");
-const { Patient } = require('../Models/Patient');
+const Patient  = require('../Models/Patient');
 
 const createPrescription = async(req,res,next)=>{
-    let {patientName, patientId, doctorId} = req.body;
+    let {patientName, patientId, doctorId, prescriptionId} = req.body;
     console.log(patientName);
     console.log(patientId);
     console.log(doctorId);
@@ -14,7 +14,6 @@ const createPrescription = async(req,res,next)=>{
     }
     const hospitalId = req.user._id;
     patientName = patientName.toLowerCase();
-    const prescriptionId = uuid.v4();
     const newPrescription = new Prescription({
         _id: prescriptionId,
         patientName,
