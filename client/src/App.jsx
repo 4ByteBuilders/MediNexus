@@ -13,6 +13,7 @@ import Patientfull from "./components/patient/Patientfull";
 import Doctorfull from "./components/doctorDashboard/Doctorfull";
 import Prescriptions from "./components/patient/Prescriptions";
 import { PatientDataProvider } from "./contextAPIs/PatientContext";
+import PrescriptionForm from "./components/doctorDashboard/PrescriptionForm";
 
 export default function App() {
   return (
@@ -32,13 +33,16 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/patienthome" element={
-          <PatientDataProvider>
-            <Patientfull />
-          </PatientDataProvider>
-        } />
+        <Route
+          path="/patienthome"
+          element={
+            <PatientDataProvider>
+              <Patientfull />
+            </PatientDataProvider>
+          }
+        />
         <Route path="/doctorhome" element={<Doctorfull />} />
-        <Route path="/prescriptions" element={<Prescriptions />} />
+        <Route path="/prescriptionform" element={<PrescriptionForm />} />
         <Route path="/viewstocks" element={<Fullstocks />} />
         <Route
           path="/hospitalhome"

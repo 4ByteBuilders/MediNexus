@@ -1,4 +1,3 @@
-
 import { instance as axios } from "@/lib/axiosConfig";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -120,17 +119,13 @@ function Prescriptions({ patientData }) {
                                 </div>
                             </div>
                         )
-                    })
-                }
-            </div>
-            <div>
-            </div>
+                    })}</div>
         </div>
     )
 }
 
 Prescriptions.propTypes = {
-    patientData: PropTypes.object.isRequired
-}
+    patientData: PropTypes.object.isRequired,
+};
 
-export default Prescriptions
+export default Prescriptions;
