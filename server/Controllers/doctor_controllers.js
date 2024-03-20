@@ -5,13 +5,13 @@ const Doctor = require("../Models/Doctor");
 const CustomError = require("../CustomError");
 
 const doctorLogin = async (req, res, next) => {
-    let { doctorId, password } = req.body;
-    let doctor = await Doctor.findById(doctorId);
+    let { registrationId, password } = req.body;
+    let doctor = await Doctor.findById(registrationId);
     const isMatch = await bcrypt.compare(password, doctor.password);
     if (!isMatch) {
       throw new CustomError("Invalid Credentials", 400);
     }
-    const token = jwt.sign({ _id: doctorId }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ _id: registrationId }, process.env.SECRET_KEY, {
       expiresIn: "2d",
     });
     res.cookie("token", token, {
@@ -22,14 +22,14 @@ const doctorLogin = async (req, res, next) => {
   }
 
 const doctorRegister = async (req, res, next) => {
-    let { doctorId, password, name, speciality, experience, degree } = req.body;
-    let doctor = await Doctor.findById(doctorId);
+    let { registrationId, password, name, speciality, experience, degree } = req.body;
+    let doctor = await Doctor.findById(registrationId);
     if (doctor) {
       throw new CustomError("Doctor already exists", 400);
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     doctor = new Doctor({
-      _id: doctorId,
+      _id: registrationId,
       password: hashedPassword,
       name,
       speciality,
@@ -37,7 +37,7 @@ const doctorRegister = async (req, res, next) => {
       degree,
     });
     await doctor.save();
-    const token = jwt.sign({ _id: doctorId }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ _id: registrationId }, process.env.SECRET_KEY, {
       expiresIn: "2d",
     });
     res.cookie("token", token, {

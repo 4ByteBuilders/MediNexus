@@ -107,18 +107,21 @@ const addPatient = async (req, res) => {
 };
 
 const getPatient = async (req, res) => {
-  let { firstName, lastName } = req.query;
-  const patientName = `${firstName} ${lastName}`;
-  const regex = new RegExp(patientName, "i");
-  let patients = await Patient.find({
-    name: { $regex: regex },
-  }).limit(15);
+  let { firstName, lastName, dob, aadhar} = req.query;
+  const patientId = `${aadhar}-${firstName}-${lastName}-${dob}`;
+  //  const patientName = `${firstName} ${lastName}`;
+  // const regex = new RegExp(patientName, "i");
+  // let patients = await Patient.find({
+  //   name: { $regex: regex },
+  // }).limit(15);
 
-  if (patients) {
-    res.status(200).send({ status: "Patient(s) Found", patients });
+  const patient = await Patient.findOne({ _id: patientId });
+
+  if (patient) {
+    res.status(200).send({ status: "Patient Found", patient });
   } else {
     res.status(404).send({
-      status: "No Patients found, kindly register the patient. Click Here:",
+      status: "No Patient found, kindly register the patient. Click Here:",
     });
   }
 };
