@@ -26,6 +26,7 @@ const createPrescription = async (req, res, next) => {
     await newPrescription.save();
     const patient = await Patient.findById(patientId);
     patient.prescriptionIds.push(prescriptionId);
+    console.log("Patient pResriotib ids: ", patient.prescriptionIds);
     await patient.save();
     const doctor = await Doctor.findById(doctorId);
     doctor.pendingPrescriptions.push(prescriptionId);
