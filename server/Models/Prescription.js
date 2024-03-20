@@ -39,6 +39,7 @@ const PrescriptionSchema = new Schema({
     doctorsOpinion: {
         type: String,
     },
+    symptoms: [String],
     medicines: [String],
 });
 

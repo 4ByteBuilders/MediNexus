@@ -1,8 +1,9 @@
 const express = require("express");
 const { catchAsync } = require("../../catchAsync");
+const { patientLogin } = require("../../Controllers/patient-controllers");
 
 const router = express.Router();
 
-router.post("/login", catchAsync((req, res, next) => {
-    const {} = req.body;
-}));
+router.post("/login", catchAsync(patientLogin));
+
+module.exports = router;
