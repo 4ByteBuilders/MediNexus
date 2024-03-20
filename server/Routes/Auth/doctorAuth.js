@@ -6,13 +6,13 @@ const router = express.Router();
 
 router.post(
   "/login",
-  protector,
+  catchAsync(protector),
   catchAsync(doctorLogin)
 );
 
 router.post(
   "/register",
-  protector,
+  catchAsync(protector),
   catchAsync(doctorRegister)
 );
 
