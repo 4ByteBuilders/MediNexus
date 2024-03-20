@@ -5,7 +5,6 @@ import { instance as axios } from "../../lib/axiosConfig";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -14,9 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import toast from "react-hot-toast";
-import { useContext, useState } from "react"
-import { HospitalDataContext } from "@/contextAPIs/HospitalContext";
 import SwitchComponent from "./SwitchComponent"
+import { useState } from "react";
 
 
 const hospitalSchema = z.object({
@@ -38,7 +36,6 @@ const initialValues = {
 };
 
 export default function Signup() {
-    const { setHospitalData } = useContext(HospitalDataContext);
     const [user, setUser] = useState('Hospital');
     const form = useForm({
         resolver: zodResolver(hospitalSchema),
@@ -47,11 +44,10 @@ export default function Signup() {
 
     async function onSubmit(values) {
         try {
-
             const res = await axios.post("/hospital-auth/register", values);
             console.log(res)
-            setHospitalData(res.data._doc);
-            toast.success(`${user} registered successfully`); x
+            // setHospitalData(res.data._doc);
+            toast.success(`${user} registered successfully`);
             setTimeout(() => {
                 window.location.href = "/hospitalhome"
             }, 1500);
@@ -75,11 +71,8 @@ export default function Signup() {
                                 <FormItem>
                                     <FormLabel className="text-md">Name</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="shadcn" {...field} className="text-md" />
+                                        <Input placeholder="XYZ Hospital" {...field} className="text-md" />
                                     </FormControl>
-                                    <FormDescription>
-                                        This is the name of the hospital
-                                    </FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -89,13 +82,10 @@ export default function Signup() {
                             name="registrationId"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-md">Registration ID</FormLabel>
+                                    <FormLabel className="text-md">Official Registered ID</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="123456" {...field} className="text-md" />
+                                        <Input placeholder="ABC:1234" {...field} className="text-md" />
                                     </FormControl>
-                                    <FormDescription>
-                                        This is the registration id of the hospital
-                                    </FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -107,11 +97,8 @@ export default function Signup() {
                                 <FormItem>
                                     <FormLabel className="text-md">Address</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="123456" {...field} className="text-md" />
+                                        <Input placeholder="Vellore, UK, 543120 " {...field} className="text-md" />
                                     </FormControl>
-                                    <FormDescription>
-                                        This is the address of the hospital
-                                    </FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -125,9 +112,6 @@ export default function Signup() {
                                     <FormControl>
                                         <Input placeholder="example@email.com" {...field} className="text-md" />
                                     </FormControl>
-                                    <FormDescription>
-                                        This is the email of the hospital
-                                    </FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -139,11 +123,8 @@ export default function Signup() {
                                 <FormItem>
                                     <FormLabel className="text-md">Password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="password" {...field} className="text-md" />
+                                        <Input placeholder="password" type='password' {...field} className="text-md" />
                                     </FormControl>
-                                    <FormDescription>
-                                        This is the password of the hospital
-                                    </FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -155,11 +136,8 @@ export default function Signup() {
                                 <FormItem>
                                     <FormLabel className="text-md">Contact Number</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="1234567890" {...field} className="text-md" />
+                                        <Input placeholder="+XX-XXXXXXXXX" {...field} className="text-md" />
                                     </FormControl>
-                                    <FormDescription>
-                                        This is the contact number of the hospital
-                                    </FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}

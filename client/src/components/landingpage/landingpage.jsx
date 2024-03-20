@@ -6,6 +6,7 @@ import Footer from "./Footer";
 function LandingPage() {
   return (
     <div className="flex flex-col font-lato">
+
       <First />
       <Second />
       <Third />

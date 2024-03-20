@@ -40,11 +40,20 @@ function First() {
             <div className="flex flex-col gap-2 text-4xl font-bold">
                 <div>
                     <Reveal>
-                        <h1>
-                            Your Nexus to Seamless Healthcare
+                        <h1 className="font-extrabold text-6xl mb-2">
+                            Medi
+                            <span className="text-green-800">
+                                Nexus
+                            </span>
+
                         </h1>
+                        <h3 className="text-3xl mb-2">
+                            Your Nexus to Seamless Healthcare
+                        </h3>
                     </Reveal>
-                    <span id="typewriter" className="text-green-950 font-extrabold">Bridging healthcare</span>
+                    <Reveal>
+                    </Reveal>
+                    <span id="typewriter" className="text-green-800 font-extrabold">Bridging healthcare</span>
                     <span id="cursor">|</span>
                 </div>
                 <div className="pt-2" >
