@@ -20,15 +20,10 @@ const sideBarItemsUpper = [
     icon: <GiHeartOrgan size={25} />,
     link: "/viewstocks",
   },
-  // {
-  //   name: "View Prescriptions",
-  //   icon: <GrDocumentTest size={25} />,
-  //   link: "/viewprescriptions",
-  // },
   {
     name: "Upload Test Results",
     icon: <GrDocumentTest size={25} />,
-    link: "/viewprescriptions",
+    link: "/uploadtests",
   },
 ];
 

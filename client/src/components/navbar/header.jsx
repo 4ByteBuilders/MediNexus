@@ -33,7 +33,8 @@ export function Navbar() {
         window.location.pathname === "/doctorhome" ||
         window.location.pathname === "/viewstocks" ||
         window.location.pathname === "/patienthome" ||
-        window.location.pathname === "/prescriptions"
+        window.location.pathname === "/prescriptions" ||
+        window.location.pathname === "/uploadtests"
           ? "hidden"
           : "relative w-full bg-background font-lato z-10"
       }

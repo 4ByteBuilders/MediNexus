@@ -13,6 +13,7 @@ import Patientfull from "./components/patient/Patientfull";
 import Doctorfull from "./components/doctorDashboard/Doctorfull";
 import Prescriptions from "./components/patient/Prescriptions";
 import { PatientDataProvider } from "./contextAPIs/PatientContext";
+import UploadTests from "./hospitalUploadTests/UploadTests";
 
 export default function App() {
   return (
@@ -38,8 +39,6 @@ export default function App() {
           </PatientDataProvider>
         } />
         <Route path="/doctorhome" element={<Doctorfull />} />
-        <Route path="/prescriptions" element={<Prescriptions />} />
-        <Route path="/viewstocks" element={<Fullstocks />} />
         <Route
           path="/hospitalhome"
           element={
@@ -48,6 +47,8 @@ export default function App() {
             </HospitalDataProvider>
           }
         />
+        <Route path="/viewstocks" element={<Fullstocks />} />
+        <Route path="/uploadtests" element={<UploadTests />} />
       </Routes>
     </BrowserRouter>
   );
