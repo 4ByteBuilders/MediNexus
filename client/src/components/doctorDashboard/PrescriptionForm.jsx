@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import toast from "react-hot-toast";
-import axios from "axios";
+import { instance as axios } from "@/lib/axiosConfig";
 import { Button } from "../ui/button";
 import PropTypes from "prop-types";
 
@@ -31,25 +31,38 @@ const initialValuesPatient = {
   tests: "",
 };
 
-const PrescriptionForm = ({ doctor, created, patientname, hospitalname }) => {
+const PrescriptionForm = ({ doctorData, created, patientName, prescriptionId }) => {
+
   const form = useForm({
     resolver: zodResolver(prescriptionSchema),
     defaultValues: initialValuesPatient,
   });
 
+  function formatDateString(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const formattedDate = `${day}-${month}-${year}, ${hours}:${minutes}`;
+
+    return formattedDate;
+  }
+
   async function onSubmit(values) {
-    values.
-      console.log(values);
+    values.symptoms = values.symptoms.split(",");
+    values.tests = values.tests.split(",");
+    values.doctorId = doctorData._id;
+    values.prescriptionId = prescriptionId;
+    console.log(values);
     try {
-      const res = await axios.post("/patient-auth/login", values);
+      const res = await axios.patch("/prescription/doctor-checkup", values);
       console.log(res);
-      toast.success("Hospital logged in successfully");
-      setTimeout(() => {
-        window.location.href = "/hospitalhome";
-      }, 1500);
+      toast.success("Prescription filled successfully");
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message);
+      toast.error("Error filling prescription. Please try again later");
     }
   }
 
@@ -60,11 +73,10 @@ const PrescriptionForm = ({ doctor, created, patientname, hospitalname }) => {
       </div>
       <div>
         <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-          Patient: {patientname}
+          Patient: {patientName}
         </h2>
-        <p className="text-sm text-gray-500 mb-2">Doctor: {doctor}</p>
-        <p className="text-sm text-gray-500 mb-2">Hospital: {hospitalname}</p>
-        <p className="text-sm text-gray-500 mb-2">Created: {created}</p>
+        <p className="text-sm text-gray-500 mb-2">Doctor: {doctorData.name}</p>
+        <p className="text-sm text-gray-500 mb-2">Created: {formatDateString(created)}</p>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -162,10 +174,10 @@ const PrescriptionForm = ({ doctor, created, patientname, hospitalname }) => {
 };
 
 PrescriptionForm.propTypes = {
-  doctor: PropTypes.string.isRequired,
+  doctorData: PropTypes.object.isRequired,
   created: PropTypes.string.isRequired,
-  patientname: PropTypes.string.isRequired,
-  hospitalname: PropTypes.string.isRequired,
+  patientName: PropTypes.string.isRequired,
+  prescriptionId: PropTypes.string.isRequired,
 };
 
 export default PrescriptionForm;

@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const Prescription = require("../Models/Prescription");
 const CustomError = require("../CustomError");
 const Patient = require('../Models/Patient');
@@ -36,9 +36,10 @@ const createPrescription = async (req, res, next) => {
 }
 
 const doctorCheckup = async (req, res, next) => {
-    let { prescriptionId, disease, doctorId,  doctorOpinion, medicines, symptoms, tests } = req.body;
+    let { prescriptionId, disease, doctorId, doctorOpinion, medicines, symptoms, tests } = req.body;
     // prescription Id has been tinged to the doctor which he will pass to this route
     // via the request body
+    console.log(req.body);
     const isDoctor = req.isDoctor;
     if (isDoctor === false) {
         throw new CustomError("Unauthorized Access", 401);
@@ -49,11 +50,9 @@ const doctorCheckup = async (req, res, next) => {
         prescription.disease = disease;
         prescription.doctorsOpinion = doctorOpinion;
         prescription.symptoms = symptoms;
-        await prescription.save();
-        const patient = Patient.findById(prescription.patientId);
-        for(let testName of tests){
+        for (let testName of tests) {
             const test = new Test({
-                _id: uuid(),
+                _id: uuidv4(),
                 testName,
                 patientName: prescription.patientName,
                 patientId: prescription.patientId,
@@ -63,12 +62,12 @@ const doctorCheckup = async (req, res, next) => {
                 testDate: new Date(),
             });
             await test.save();
-            patient.testIds.push(test._id);
+            prescription.testIds.push(test._id);
         }
-        await patient.save();
+        await prescription.save();
         const doctor = await Doctor.findById(doctorId);
-        doctor.pendingPrescriptions = doctor.pendingPrescriptions.filter((prescription_id)=>{
-        return prescriptionId !== prescription_id;
+        doctor.pendingPrescriptions = doctor.pendingPrescriptions.filter((prescription_id) => {
+            return prescriptionId !== prescription_id;
         });
         await doctor.save();
         res.status(200).send({ status: "Prescription Updated", prescription });
