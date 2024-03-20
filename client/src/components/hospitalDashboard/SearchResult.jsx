@@ -42,6 +42,7 @@ export default function SearchResults({
       const patientId = patient._id;
       const doctorId = patient.selectedDoctorId;
       const prescriptionId = patient.prescriptionId;
+      console.log("HELLORJFNOajdhfoidfjs");
       const res = await axios.post('/prescription/create', {
         patientName,
         patientId,
