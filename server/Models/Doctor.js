@@ -27,6 +27,12 @@ const DoctorSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  pendingPrescriptions: [
+    {
+      type: mongoose.Schema.Types.String,
+      ref: "Prescription",
+    },
+  ],
   degree: {
     type: String,
     required: true,
