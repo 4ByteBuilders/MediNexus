@@ -10,6 +10,7 @@ const hospitalAuth = require("./Routes/Auth/hospitalAuth");
 const hospitalRoutes = require("./Routes/Hospital/hospital");
 const patientRoutes = require("./Routes/Patient/patient");
 const doctorAuth = require("./Routes/Auth/doctorAuth");
+const patientAuth = require('./Routes/Auth/patientAuth');
 const persistentLoginRoute = require('./Routes/PersistentLogin/persistentLogin');
 const prescriptionRoutes = require("./Routes/Prescription/prescription");
 const testRoutes = require("./Routes/Test/test");
@@ -36,6 +37,7 @@ httpServer.listen(port, () => {
 app.use("/user", persistentLoginRoute);
 app.use("/hospital-auth", hospitalAuth);
 app.use("/doctor-auth", doctorAuth);
+app.use("/patient-auth", patientAuth);
 app.use("/hospital", hospitalRoutes);
 app.use("/patient", patientRoutes);
 app.use("/prescription", prescriptionRoutes);
