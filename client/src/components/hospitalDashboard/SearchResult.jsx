@@ -13,6 +13,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { instance as axios } from "@/lib/axiosConfig";
 import PropTypes from "prop-types";
+import { CgGirl } from "react-icons/cg";
+import { CgBoy } from "react-icons/cg";
 
 export default function SearchResults({ item, values }) {
   const [patient, setPatient] = useState(null);
@@ -22,7 +24,9 @@ export default function SearchResults({ item, values }) {
     setLoading(true);
     try {
       console.log(values);
-      const res = await axios.get("/hospital/patient-lookup", { params: values });
+      const res = await axios.get("/hospital/patient-lookup", {
+        params: values,
+      });
       console.log(res.data);
       if (res.data.patient) {
         setPatient(res.data.patient);
@@ -55,13 +59,14 @@ export default function SearchResults({ item, values }) {
         {isLoading ? (
           <Loading />
         ) : patient ? (
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <div className="text-right">Name: {patient.name}</div>
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <div className="text-right">
-                Aadhar last 4 digits: {patient._id.slice(0, 4)}
+          <div className="flex flex-row gap-4 py-4">
+            <div className="flex flex-row items-start gap-2">
+              <CgBoy />
+              <div className="flex flex-col items-start">
+                <div className="text-center">Name: {patient.name}</div>
+                <div className="text-center">
+                  Aadhar: {patient._id.slice(0, 4)}
+                </div>
               </div>
             </div>
           </div>
