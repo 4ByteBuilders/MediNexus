@@ -13,21 +13,22 @@ import * as z from "zod";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Button } from "../ui/button";
+import PropTypes from "prop-types";
 
 const prescriptionSchema = z.object({
-  symptoms: z.array(z.string()),
-  medicines: z.array(z.string()),
+  symptoms: z.string().min(2).max(50),
+  medicines: z.string().min(2).max(50),
   doctorOpinion: z.string().min(2).max(50),
   disease: z.string().min(4).max(20),
-  recommendedTests: z.string().min(0).max(50),
+  tests: z.string().min(0).max(50),
 });
 
 const initialValuesPatient = {
   symptoms: "",
   medicines: "",
   doctorOpinion: "",
-  disese: "",
-  recommendedTests: "",
+  disease: "",
+  tests: "",
 };
 
 const PrescriptionForm = ({ doctor, created, patientname, hospitalname }) => {
@@ -37,7 +38,8 @@ const PrescriptionForm = ({ doctor, created, patientname, hospitalname }) => {
   });
 
   async function onSubmit(values) {
-    console.log(values);
+    values.
+      console.log(values);
     try {
       const res = await axios.post("/patient-auth/login", values);
       console.log(res);
@@ -136,13 +138,13 @@ const PrescriptionForm = ({ doctor, created, patientname, hospitalname }) => {
           />
           <FormField
             control={form.control}
-            name="recommendedTests"
+            name="tests"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-md">Recommended tests</FormLabel>
                 <FormControl>
                   <Input
-                    type="password"
+                    type="text"
                     placeholder="CT scan, MRI..."
                     {...field}
                     className="text-md"
@@ -157,6 +159,13 @@ const PrescriptionForm = ({ doctor, created, patientname, hospitalname }) => {
       </Form>
     </div>
   );
+};
+
+PrescriptionForm.propTypes = {
+  doctor: PropTypes.string.isRequired,
+  created: PropTypes.string.isRequired,
+  patientname: PropTypes.string.isRequired,
+  hospitalname: PropTypes.string.isRequired,
 };
 
 export default PrescriptionForm;

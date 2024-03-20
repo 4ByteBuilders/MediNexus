@@ -11,9 +11,10 @@ import Fullstocks from "./components/viewStocks/Fullstocks";
 import Login from "./components/authentication/Login";
 import Patientfull from "./components/patient/Patientfull";
 import Doctorfull from "./components/doctorDashboard/Doctorfull";
-import Prescriptions from "./components/patient/Prescriptions";
 import { PatientDataProvider } from "./contextAPIs/PatientContext";
 import UploadTests from "./hospitalUploadTests/UploadTests";
+import PrescriptionForm from "./components/doctorDashboard/PrescriptionForm";
+import { DoctorDataProvider } from "./contextAPIs/DoctorContext";
 
 export default function App() {
   return (
@@ -41,6 +42,13 @@ export default function App() {
             </PatientDataProvider>
           }
         />
+        <Route path="/doctorhome" element={
+          <DoctorDataProvider>
+            <Doctorfull />
+          </DoctorDataProvider>
+        } />
+        <Route path="/prescriptionform" element={<PrescriptionForm />} />
+        <Route path="/viewstocks" element={<Fullstocks />} />
         <Route path="/doctorhome" element={<Doctorfull />} />
         <Route
           path="/hospitalhome"

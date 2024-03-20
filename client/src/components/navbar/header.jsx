@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
@@ -28,13 +27,12 @@ export function Navbar() {
     <div
       className={
         window.location.pathname === "/hospitalhome" ||
-        window.location.pathname === "/viewstocks" ||
-        window.location.pathname === "/patienthome" ||
-        window.location.pathname === "/doctorhome" ||
-        window.location.pathname === "/viewstocks" ||
-        window.location.pathname === "/patienthome" ||
-        window.location.pathname === "/prescriptions" ||
-        window.location.pathname === "/uploadtests"
+          window.location.pathname === "/doctorhome" ||
+          window.location.pathname === "/uploadtests" ||
+          window.location.pathname === "/prescriptionform" ||
+          window.location.pathname === "/viewstocks" ||
+          window.location.pathname === "/patienthome" ||
+          window.location.pathname === "/prescriptions"
           ? "hidden"
           : "relative w-full bg-background font-lato z-10"
       }
