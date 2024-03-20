@@ -1,5 +1,4 @@
-import React from "react";
-import { Button } from "../ui/button";
+import PropTypes from "prop-types";
 
 const Patientprofile = ({ patientData }) => {
   const calculateAge = (dob) => {
@@ -33,6 +32,10 @@ const Patientprofile = ({ patientData }) => {
       </div>
     </div>
   );
+};
+
+Patientprofile.propTypes = {
+  patientData: PropTypes.object.isRequired,
 };
 
 export default Patientprofile;

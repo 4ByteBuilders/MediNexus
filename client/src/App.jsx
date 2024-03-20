@@ -9,7 +9,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HospitalDataProvider } from "./contextAPIs/HospitalContext";
 import Fullstocks from "./components/viewStocks/Fullstocks";
 import Login from "./components/authentication/Login";
-import Patientfull from "./components/patientDashboard/Patientfull";
+import Patientfull from "./components/patient/Patientfull";
+import Prescriptions from "./components/patient/Prescriptions";
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/patienthome" element={<Patientfull />} />
+        <Route path="/prescriptions" element={<Prescriptions />} />
         <Route path="/viewstocks" element={<Fullstocks />} />
         <Route
           path="/hospitalhome"
