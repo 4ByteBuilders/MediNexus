@@ -2,7 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { Hospital } = require("../Models/Hospital");
-const Patient  = require("../Models/Patient");
+const Patient = require("../Models/Patient");
 const CustomError = require("../CustomError");
 const Prescription = require("../Models/Prescription");
 
@@ -107,8 +107,8 @@ const addPatient = async (req, res) => {
 };
 
 const getPatient = async (req, res) => {
-  let { firstName, lastName, dob, aadhar} = req.query;
-  const patientId = `${aadhar}-${firstName}-${lastName}-${dob}`;
+  let { firstName, lastName, dob, aadhar } = req.query;
+  const patientId = `${aadhar}-${firstName.toLowerCase()}-${lastName.toLowerCase()}-${dob}`;
   //  const patientName = `${firstName} ${lastName}`;
   // const regex = new RegExp(patientName, "i");
   // let patients = await Patient.find({
@@ -120,8 +120,8 @@ const getPatient = async (req, res) => {
   if (patient) {
     res.status(200).send({ status: "Patient Found", patient });
   } else {
-    res.status(404).send({
-      status: "No Patient found, kindly register the patient. Click Here:",
+    res.status(200).send({
+      status: "No record found for the given patient details!",
     });
   }
 };
