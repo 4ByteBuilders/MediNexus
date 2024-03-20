@@ -126,9 +126,33 @@ const getPatient = async (req, res) => {
   }
 };
 
+const getDoctors = async (req, res) => {
+  let { speciality, doctorName } = req.query;
+  doctorName = new RegExp(doctorName, 'i'); // case-insensitive pattern matching
+  speciality = new RegExp(speciality, 'i'); // case-insensitive pattern matching
+
+  if (req.isHospital) {
+    const hospitalId = req.user._id;
+    const hospital = await Hospital.findById(hospitalId).populate({
+      path: 'doctors',
+      match: {
+        name: { $regex: doctorName },
+        speciality: { $regex: speciality }
+      }
+    });
+
+    const doctors = hospital.doctors.filter(doc => doc); // filter out nulls
+
+    res.status(200).send({ doctors });
+  } else {
+    res.status(401).send({ message: "Unauthorized" });
+  }
+};
+
 module.exports = {
   hospitalRegister,
   hospitalLogin,
   addPatient,
   getPatient,
+  getDoctors
 };

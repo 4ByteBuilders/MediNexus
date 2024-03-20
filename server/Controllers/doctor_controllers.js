@@ -30,8 +30,8 @@ const doctorRegister = async (req, res) => {
   doctor = new Doctor({
     _id: registrationId,
     password: hashedPassword,
-    name,
-    speciality,
+    name: name.toLowerCase(),
+    speciality: speciality.toLowerCase(),
     experience,
     degree,
   });
