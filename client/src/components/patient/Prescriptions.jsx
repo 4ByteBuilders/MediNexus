@@ -1,33 +1,8 @@
-import Sidebar from "../navbar/sideBar"
+
 import { instance as axios } from "@/lib/axiosConfig";
-import { IoNewspaper } from "react-icons/io5";
-import { GrDocumentTest } from "react-icons/gr";
-import { MdDashboard } from "react-icons/md";
-import { IoMdChatbubbles } from "react-icons/io";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-const sideBarItemsUpper = [
-    {
-        name: "Dashboard",
-        icon: <MdDashboard size={25} />,
-        link: "/patienthome",
-    },
-    {
-        name: "Prescriptions",
-        icon: <IoNewspaper size={25} />,
-        link: "/prescriptions",
-    },
-    {
-        name: "Tests",
-        icon: <GrDocumentTest size={25} />,
-        link: "/gettests",
-    },
-    {
-        name: "Chat",
-        icon: <IoMdChatbubbles size={25} />,
-        link: "/chatwithdoctor",
-    },
-];
+import PropTypes from "prop-types";
 
 function Prescriptions({ patientData }) {
     console.log(patientData)
@@ -35,7 +10,7 @@ function Prescriptions({ patientData }) {
     useEffect(() => {
         const fetchPrescriptions = async () => {
             try {
-                const res = await axios.get('/prescription/:patient_id/get-prescription')
+                const res = await axios.get(`/prescription/${patientData._id}/get-prescription`)
                 setPrescriptions(res.data)
                 toast.success('Prescriptions fetched successfully')
             } catch (error) {
@@ -64,6 +39,10 @@ function Prescriptions({ patientData }) {
             </div>
         </div>
     )
+}
+
+Prescriptions.propTypes = {
+    patientData: PropTypes.object.isRequired
 }
 
 export default Prescriptions
