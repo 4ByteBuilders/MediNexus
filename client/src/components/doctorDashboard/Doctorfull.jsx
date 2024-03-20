@@ -32,6 +32,21 @@ const sideBarItemsUpper = [
 ];
 const Doctorfull = () => {
   const { doctorData } = useContext(DoctorDataContext);
+  const [pId, setPId] = useState({});
+  const [page, setPage] = useState("Prescriptions");
+
+  function formatDateString(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const formattedDate = `${day}-${month}-${year}, ${hours}:${minutes}`;
+
+    return formattedDate;
+  }
+
   const [prescription, setPrescriptions] = useState([
     {
       patientname: "Abhishek Ekre",
@@ -51,10 +66,7 @@ const Doctorfull = () => {
       <div className="w-screen pl-[220px] pt-8 font-lato">
         <Sidebar items={sideBarItemsUpper} />
         <div className="w-full h-full flex flex-col">
-
-
-
-          <div className="flex flex-row-reverse w-full my-8 h-full">
+          {page === "Prescriptions" ? <div className="flex flex-row-reverse w-full my-8 h-full">
             {/* Doctor Profile */}
             <div className="flex flex-col items-center h-full bg-gradient-to-b from-green-100 to-white rounded-2xl mx-5 py-3 border-2 border-black">
               <div className="flex flex-col w-full h-full items-center justify-center">
@@ -71,26 +83,36 @@ const Doctorfull = () => {
             </div>
             <div className="flex flex-col mr-5 w-full">
               <h1 className="text-2xl font-bold">Patient&apos;s Prescriptions</h1>
-              {prescription.map((p, id) => {
+              {doctorData.pendingPrescriptions.map((p, id) => {
                 return (
                   <div
                     key={id}
                     className="w-full p-6 bg-slate-200 rounded-lg shadow-sm my-3"
                   >
                     <h2 className="text-2xl text-gray-800 mb-2">
-                      {p.patientname}
+                      {p.patientName}
                     </h2>
                     <p className="text-sm text-gray-500 mb-2">
-                      Created: {p.created}
+                      Created: {formatDateString(p.createdAt)}
                     </p>
                     <div className="flex justify-end">
-                      <Link to="/prescriptionform">Fill Prescription</Link>
+                      <Button onClick={() => {
+                        setPId({
+                          patientName: p.patientName,
+                          prescriptionId: p._id,
+                          created: p.createdAt,
+                        })
+                        setPage('Fill')
+                      }}>Fill Prescription</Button>
                     </div>
                   </div>
                 );
               })}
             </div>
-          </div>
+          </div> :
+            <PrescriptionForm
+              doctorData={doctorData} {...pId} />
+          }
         </div>
       </div>
     </>
