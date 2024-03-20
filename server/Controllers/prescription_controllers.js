@@ -54,7 +54,7 @@ const getPrescription = async (req, res, next) => {
     //dob ka / ko underscore karke bhejega front end se
     patient_id = patient_id.replace(/_/g, '/');
     const patient = await Patient.findById(patient_id).populate('prescriptionIds');
-    if (!patient) {
+    if(!patient){
         throw new CustomError("Patient Not Found", 404);
     }
     console.log("Patient: ", patient);

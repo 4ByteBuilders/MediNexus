@@ -33,7 +33,7 @@ const TestSchema = mongoose.Schema({
     },
     testResult: {
         type: String,
-    }, // url of the cloudinary file
+    }, // url of the cloudinary pdf file
     prescriptionId: {
         type: mongoose.Schema.Types.String,
         ref: 'Prescription',
