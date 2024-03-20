@@ -11,6 +11,7 @@ import Fullstocks from "./components/viewStocks/Fullstocks";
 import Login from "./components/authentication/Login";
 import Patientfull from "./components/patientDashboard/Patientfull";
 import Doctorfull from "./components/doctorDashboard/Doctorfull";
+import Prescriptions from "./components/patient/Prescriptions";
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/patienthome" element={<Patientfull />} />
         <Route path="/doctorhome" element={<Doctorfull />} />
+        <Route path="/prescriptions" element={<Prescriptions />} />
         <Route path="/viewstocks" element={<Fullstocks />} />
         <Route
           path="/hospitalhome"

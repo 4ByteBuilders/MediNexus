@@ -1,8 +1,7 @@
-import React from "react";
+import PropTypes from "prop-types";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -35,6 +34,10 @@ const Doctorlist = ({ doctorsdata }) => {
       </Table>
     </div>
   );
+};
+
+Doctorlist.propTypes = {
+  doctorsdata: PropTypes.array.isRequired,
 };
 
 export default Doctorlist;

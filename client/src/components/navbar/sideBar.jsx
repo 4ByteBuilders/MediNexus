@@ -1,4 +1,5 @@
-import TestResults from "../hospitalTestResults/ViewPrescriptions";
+import PropTypes from "prop-types";
+
 function Sidebar({ items }) {
   return (
     <div
@@ -14,29 +15,29 @@ function Sidebar({ items }) {
             <span className="font-bold">MediNexus</span>
           </div>
         </div>
-        {items.map((item, index) =>
-          index === 2 ? (
-            <TestResults key={index} item={item} />
-          ) : (
-            <div
-              key={index}
-              onClick={() => {
-                window.location.pathname = item.link;
-              }}
-              className={
-                window.location.pathname === item.link
-                  ? "flex flex-row gap-2 items-center justify-start w-[195px] p-3 transition-colors duration-300 cursor-pointer bg-primary text-white rounded-md mx-auto"
-                  : "flex flex-row gap-2 items-center justify-start w-[195px] p-3 transition-colors duration-300 cursor-pointer hover:bg-slate-200 rounded-md mx-auto"
-              }
-            >
-              <div className="">{item.icon}</div>
-              <div className="">{item.name}</div>
-            </div>
-          )
+        {items.map((item, index) => (
+          <div
+            key={index}
+            onClick={() => {
+              window.location.pathname = item.link;
+            }}
+            className={
+              window.location.pathname === item.link
+                ? "flex flex-row gap-2 items-center justify-start w-[195px] p-3 transition-colors duration-300 cursor-pointer bg-primary text-white rounded-md mx-auto"
+                : "flex flex-row gap-2 items-center justify-start w-[195px] p-3 transition-colors duration-300 cursor-pointer hover:bg-slate-200 rounded-md mx-auto"
+            }
+          >
+            <div className="">{item.icon}</div>
+            <div className="">{item.name}</div>
+          </div>
+        )
         )}
       </div>
     </div>
   );
 }
+Sidebar.propTypes = {
+  items: PropTypes.array.isRequired,
+};
 
 export default Sidebar;

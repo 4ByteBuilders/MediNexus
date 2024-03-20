@@ -92,6 +92,7 @@ const Hospitalfull = () => {
                 type="text"
                 placeholder="DOB dd/mm/yyyy"
               />
+
               <SearchResults
                 item={{ icon: <IoMdSearch />, name: "Search" }}
                 values={values}

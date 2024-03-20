@@ -1,4 +1,3 @@
-import React from "react";
 import Sidebar from "../navbar/sideBar";
 import { IoNewspaper } from "react-icons/io5";
 import { LiaBlogSolid } from "react-icons/lia";
