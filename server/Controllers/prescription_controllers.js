@@ -33,7 +33,7 @@ const createPrescription = async (req, res, next) => {
 }
 
 const doctorCheckup = async (req, res, next) => {
-    let { prescriptionId, disease, doctorOpinion, medicines, symptoms, tests } = req.body;
+    let { prescriptionId, disease, doctorId,  doctorOpinion, medicines, symptoms, tests } = req.body;
     // prescription Id has been tinged to the doctor which he will pass to this route
     // via the request body
     const isDoctor = req.isDoctor;
@@ -44,7 +44,8 @@ const doctorCheckup = async (req, res, next) => {
     if (prescription) {
         prescription.medicines = medicines;
         prescription.disease = disease;
-        prescription.doctorsOpinion = doctorsOpinion;
+        prescription.doctorsOpinion = doctorOpinion;
+        prescription.symptoms = symptoms;
         await prescription.save();
         const patient = Patient.findById(prescription.patientId);
         for(let testName of tests){
@@ -62,6 +63,11 @@ const doctorCheckup = async (req, res, next) => {
             patient.testIds.push(test._id);
         }
         await patient.save();
+        const doctor = await Doctor.findById(doctorId);
+        doctor.pendingPrescriptions = doctor.pendingPrescriptions.filter((prescription_id)=>{
+        return prescriptionId !== prescription_id;
+        });
+        await doctor.save();
         res.status(200).send({ status: "Prescription Updated", prescription });
         // socket ting to patient
     } else {
