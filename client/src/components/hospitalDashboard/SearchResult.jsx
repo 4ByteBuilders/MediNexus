@@ -120,7 +120,9 @@ export default function SearchResults({ item, values, patient, setPatient }) {
         )}
         <DialogFooter>
           <DropdownMenu>
-            <DropdownMenuTrigger>Select Doctor</DropdownMenuTrigger>
+            {
+              patient &&
+              <DropdownMenuTrigger>Select Doctor</DropdownMenuTrigger>}
             <DropdownMenuContent>
               <DropdownMenuLabel>
                 <div className="flex flex-row gap-2">
