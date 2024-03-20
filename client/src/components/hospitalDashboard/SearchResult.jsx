@@ -12,6 +12,7 @@ import Loading from "../ui/loading";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { instance as axios } from "@/lib/axiosConfig";
+import PropTypes from "prop-types";
 
 export default function SearchResults({ item, values }) {
   const [patient, setPatient] = useState(null);
@@ -23,13 +24,8 @@ export default function SearchResults({ item, values }) {
       console.log(values);
       const res = await axios.get("/hospital/patient-lookup", { params: values });
       console.log(res.data);
-      if (res.data.patients.length !== 0) {
-        const data = res.data.patients;
-        data.map((patient) => {
-          patient.aadhar = patient._id.slice(0, 4);
-          return patient;
-        });
-        setPatient(data);
+      if (res.data.patient) {
+        setPatient(res.data.patient);
       } else {
         toast.error("No Patients found");
         setPatient(null);
@@ -65,12 +61,7 @@ export default function SearchResults({ item, values }) {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <div className="text-right">
-                Aadhar last 4 digits: {patient.aadhar}
-              </div>
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <div className="text-right">
-                Aadhar last 4 digits: {patient.phoneNumber}
+                Aadhar last 4 digits: {patient._id.slice(0, 4)}
               </div>
             </div>
           </div>
@@ -85,3 +76,8 @@ export default function SearchResults({ item, values }) {
     </Dialog>
   );
 }
+
+SearchResults.propTypes = {
+  item: PropTypes.object,
+  values: PropTypes.object,
+};
