@@ -42,9 +42,9 @@ function PatientLogin() {
     try {
       const res = await axios.post("/patient-auth/login", values);
       console.log(res);
-      toast.success("Hospital logged in successfully");
+      toast.success("Patient logged in successfully");
       setTimeout(() => {
-        window.location.href = "/hospitalhome";
+        window.location.href = "/patienthome";
       }, 1500);
     } catch (error) {
       console.log(error);
