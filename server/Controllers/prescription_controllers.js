@@ -26,9 +26,10 @@ const createPrescription = async (req, res, next) => {
   await newPrescription.save();
   const patient = await Patient.findById(patientId);
   patient.prescriptionIds.push(prescriptionId);
+  console.log("Patient pResriotib ids: ", patient.prescriptionIds);
+  await patient.save();
   const doctor = await Doctor.findById(doctorId);
   doctor.pendingPrescriptions.push(prescriptionId);
-  await patient.save();
   await doctor.save();
   res
     .status(200)
@@ -103,12 +104,10 @@ const getPrescription = async (req, res, next) => {
   }
   console.log("Patient: ", patient);
   console.log("Patient prescriptions: ", patient.prescriptionIds);
-  res
-    .status(200)
-    .send({
-      status: "Patient Prescriptions",
-      prescriptions: patient.prescriptionIds,
-    });
+  res.status(200).send({
+    status: "Patient Prescriptions",
+    prescriptions: patient.prescriptionIds,
+  });
 };
 
 module.exports = {
