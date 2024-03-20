@@ -16,6 +16,7 @@ import { instance as axios } from "@/lib/axiosConfig";
 import PropTypes from "prop-types";
 import { CgGirl } from "react-icons/cg";
 import { CgBoy } from "react-icons/cg";
+import {v4 as uuid} from "uuid";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,29 +35,38 @@ export default function SearchResults({
   setQueue,
   queue,
 }) {
-  // const addToQueue = () => {
-  //   setQueue([...queue, patient]);
 
-  // };
+  useEffect(()=>{
+    const savePrescription = async ()=>{
+      const patientName = patient.name;
+      const patientId = patient._id;
+      const doctorId = patient.selectedDoctorId;
+      const prescriptionId = patient.prescriptionId;
+      const res = await axios.post('/prescription/create', {
+        patientName,
+        patientId,
+        doctorId,
+        prescriptionId,
+      });
+      if(res.data.success === true){
+        const updatedQueue = [...queue, patient];
+        setQueue(updatedQueue);
+        localStorage.setItem('appointmentQueue', JSON.stringify(updatedQueue));
+        console.log(localStorage.getItem('appointmentQueue'));
+        toast.success("Appointment Scheduled!");
+      } else{
+        toast.error("Something Went Wrong! Please try again");
+      }
+    }
+    savePrescription();
+  }, [patient]);
 
   const addToQueue = async () => {
     console.log("patient lolol",patient);
-    const patientName = patient.name;
-    const patientId = patient._id;
-    const doctorId = patient.selectedDoctorId;
-    const res = await axios.post('/prescription/create', {
-      patientName,
-      patientId,
-      doctorId,
+    const prescriptionId = uuid();
+    setPatient((prevPatient)=>{
+      return {...prevPatient, prescriptionId};
     });
-    if(res.data.success === true){
-      const updatedQueue = [...queue, patient];
-      setQueue(updatedQueue);
-      localStorage.setItem('appointmentQueue', JSON.stringify(updatedQueue));
-      toast.success("Appointment Scheduled!");
-    } else{
-      toast.error("Something Went Wrong! Please try again");
-    }
   };
 
   const [isLoading, setLoading] = useState(true);
