@@ -35,6 +35,7 @@ const Hospitalfull = () => {
     aadhar: "",
   });
   const [patient, setPatient] = useState(null);
+  const [queue, setQueue] = useState([]);
   // const { hospitalData } = useContext(HospitalDataContext);
 
   return (
@@ -92,6 +93,8 @@ const Hospitalfull = () => {
                 values={values}
                 patient={patient}
                 setPatient={setPatient}
+                queue={queue}
+                setQueue={setQueue}
               />
             </div>
           </div>
@@ -100,7 +103,7 @@ const Hospitalfull = () => {
               {patient.name} {patient.selectedDoctorName}
             </p>
           )}
-          <Patientlist />
+          <Patientlist queue={queue} />
         </div>
       </div>
     </div>

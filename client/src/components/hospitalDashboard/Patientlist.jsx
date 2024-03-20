@@ -9,7 +9,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-const Patientlist = () => {
+const Patientlist = ({ queue }) => {
+  const capitalize = (name) => {
+    const names = name.split(" ");
+    const capitalizedNames = names.map((name) => {
+      return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    });
+    return capitalizedNames.join(" ");
+  };
   const calculateAge = (dob) => {
     let parts = dob.split("/");
     let formattedDob = parts[1] + "/" + parts[0] + "/" + parts[2];
@@ -19,26 +26,6 @@ const Patientlist = () => {
 
     return Math.abs(age_dt.getUTCFullYear() - 1970);
   };
-  const [patients, setPatients] = useState([
-    {
-      name: "John Doe",
-      bloodgroup: "O+",
-      contact: "12345610890",
-      dob: "01/01/2000",
-    },
-    {
-      name: "John Doe",
-      bloodgroup: "O+",
-      contact: "12345610890",
-      dob: "01/01/2004",
-    },
-    {
-      name: "John Doe",
-      bloodgroup: "O+",
-      contact: "",
-      dob: "01/01/1990",
-    },
-  ]);
 
   return (
     <div className="bg-white rounded-sm p-4 w-full">
@@ -48,20 +35,20 @@ const Patientlist = () => {
           <TableRow>
             <TableHead className="w-[100px]">Name</TableHead>
             <TableHead>Blood group</TableHead>
-            <TableHead>Contact info</TableHead>
-            <TableHead className="text-right">Age</TableHead>
+            <TableHead>Aadhar no</TableHead>
+            <TableHead className="text-right">Doctor</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {patients.map((patient, index) => (
+          {queue.map((patient, index) => (
             <TableRow key={index}>
-              <TableCell className="font-medium">{patient.name}</TableCell>
-              <TableCell>{patient.bloodgroup}</TableCell>
-              <TableCell>
-                {patient.contact ? patient.contact : "Unavailable"}
+              <TableCell className="font-medium">
+                {capitalize(patient.name)}
               </TableCell>
+              <TableCell>{patient.bloodType}</TableCell>
+              <TableCell>{patient._id.slice(0, 4)}</TableCell>
               <TableCell className="text-right">
-                {calculateAge(patient.dob)}
+                {patient.selectedDoctorName}
               </TableCell>
             </TableRow>
           ))}

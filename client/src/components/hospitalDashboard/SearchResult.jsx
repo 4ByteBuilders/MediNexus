@@ -22,22 +22,32 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import { Input } from "../ui/input";
+import { set } from "react-hook-form";
 
-export default function SearchResults({ item, values, patient, setPatient }) {
-
+export default function SearchResults({
+  item,
+  values,
+  patient,
+  setPatient,
+  setQueue,
+  queue,
+}) {
+  const addToQueue = () => {
+    setQueue([...queue, patient]);
+  };
   const [isLoading, setLoading] = useState(true);
   const [doctorName, setDoctorName] = useState("");
   const [speciality, setSpeciality] = useState("");
   const [doctorList, setDoctorList] = useState([]);
   //capitalize name function
   const capitalize = (name) => {
-    const names = name.split(' ');
-    const capitalizedNames = names.map(name => {
+    const names = name.split(" ");
+    const capitalizedNames = names.map((name) => {
       return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
     });
-    return capitalizedNames.join(' ');
+    return capitalizedNames.join(" ");
   };
 
   const searchPatient = async () => {
@@ -64,24 +74,23 @@ export default function SearchResults({ item, values, patient, setPatient }) {
 
   useEffect(() => {
     console.log(doctorName, speciality);
-    if (doctorName.length > 2 || speciality.length > 2)
-      getDoctors();
-  }, [doctorName, speciality])
+    if (doctorName.length > 2 || speciality.length > 2) getDoctors();
+  }, [doctorName, speciality]);
 
   const getDoctors = async () => {
     try {
       const res = await axios.get("/hospital/doctor-lookup", {
         params: {
           doctorName,
-          speciality
-        }
+          speciality,
+        },
       });
       setDoctorList(res.data.filteredDoctors);
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
     }
-  }
+  };
   return (
     <Dialog>
       <DialogTrigger onClick={searchPatient} asChild>
@@ -93,26 +102,42 @@ export default function SearchResults({ item, values, patient, setPatient }) {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Search Results</DialogTitle>
-          <DialogDescription>
-            Select if the patient is found
-          </DialogDescription>
+          <DialogDescription>Select if the patient is found</DialogDescription>
         </DialogHeader>
         {isLoading ? (
           <Loading />
         ) : patient ? (
           <div className="flex flex-row items-center gap-4 py-4 bg-slate-200 cursor-pointer rounded-lg px-3">
             <div>
-              {patient.gender === "male" ? <CgBoy size={34} /> : <CgGirl size={34} />}
+              {patient.gender === "male" ? (
+                <CgBoy size={34} />
+              ) : (
+                <CgGirl size={34} />
+              )}
             </div>
             <div className="flex flex-col items-start">
-              <p className="text-center">Name: <span className="font-semibold">{capitalize(patient.name)}</span></p>
-              <p className="text-center">Aadhar: <span className="font-semibold">{patient._id.slice(0, 4)}</span></p>
-              <p className="text-center">Blood group: <span className="font-semibold">{patient.bloodType}</span></p>
-              {
-                patient.selectedDoctorName && (
-                  <p className="text-center">Doctor: <span className="font-semibold">{patient.selectedDoctorName}</span></p>
-                )
-              }
+              <p className="text-center">
+                Name:{" "}
+                <span className="font-semibold">
+                  {capitalize(patient.name)}
+                </span>
+              </p>
+              <p className="text-center">
+                Aadhar:{" "}
+                <span className="font-semibold">{patient._id.slice(0, 4)}</span>
+              </p>
+              <p className="text-center">
+                Blood group:{" "}
+                <span className="font-semibold">{patient.bloodType}</span>
+              </p>
+              {patient.selectedDoctorName && (
+                <p className="text-center">
+                  Doctor:{" "}
+                  <span className="font-semibold">
+                    {patient.selectedDoctorName}
+                  </span>
+                </p>
+              )}
             </div>
           </div>
         ) : (
@@ -132,7 +157,8 @@ export default function SearchResults({ item, values, patient, setPatient }) {
                     value={doctorName}
                     onChange={() => {
                       setDoctorName(event.target.value);
-                    }} />
+                    }}
+                  />
                   <Input
                     type="text"
                     placeholder="Speciality"
@@ -142,44 +168,45 @@ export default function SearchResults({ item, values, patient, setPatient }) {
                       setSpeciality(event.target.value);
                     }}
                   />
-
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              {
-                doctorList.map((item, index) => {
-                  return (
-                    <DropdownMenuItem key={index}
-                      onClick={() => {
-                        console.log("Raaan")
-                        setPatient({
-                          ...patient,
-                          selectedDoctorId: item._id,
-                          selectedDoctorName: item.name,
-                          selectedDoctorSpeciality: item.speciality,
-                        });
-                      }}
-                    >
-                      <div className="flex flex-col">
-                        <p className="font-semibold">{item.name}</p>
-                        <p>{item.speciality}</p>
-                      </div>
-                    </DropdownMenuItem>
-                  )
-                })
-              }
-
+              {doctorList.map((item, index) => {
+                return (
+                  <DropdownMenuItem
+                    key={index}
+                    onClick={() => {
+                      console.log("Raaan");
+                      setPatient({
+                        ...patient,
+                        selectedDoctorId: item._id,
+                        selectedDoctorName: item.name,
+                        selectedDoctorSpeciality: item.speciality,
+                      });
+                    }}
+                  >
+                    <div className="flex flex-col">
+                      <p className="font-semibold">{item.name}</p>
+                      <p>{item.speciality}</p>
+                    </div>
+                  </DropdownMenuItem>
+                );
+              })}
             </DropdownMenuContent>
           </DropdownMenu>
           <div className="w-1" />
-          {
-            patient ?
-              <Button type="submit">Add Patient to Queue</Button> :
-              <Button disabled type="submit">Add Patient to Queue</Button>
-          }
+          {patient ? (
+            <Button type="submit" onClick={addToQueue}>
+              Add Patient to Queue
+            </Button>
+          ) : (
+            <Button disabled type="submit">
+              Add Patient to Queue
+            </Button>
+          )}
         </DialogFooter>
       </DialogContent>
-    </Dialog >
+    </Dialog>
   );
 }
 
