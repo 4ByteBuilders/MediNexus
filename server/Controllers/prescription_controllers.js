@@ -22,6 +22,9 @@ const createPrescription = async(req,res,next)=>{
         createdbyHospital: hospitalId,
     });
     await newPrescription.save();
+    const patient = await Patient.findById(patientId);
+    patient.prescriptionIds.push(prescriptionId);
+    await patient.save();
     res.status(200).send({status: "Prescription Created", newPrescription, success: true});    
     // socket ting to doctor and patient
     // test ids to be uploaded by hospital
