@@ -4,8 +4,6 @@ const bcrypt = require("bcrypt");
 const { Hospital } = require("../Models/Hospital");
 const Patient = require("../Models/Patient");
 const CustomError = require("../CustomError");
-const Prescription = require("../Models/Prescription");
-const Doctor = require("../Models/Doctor");
 
 const hospitalRegister = async (req, res, next) => {
   const { registrationId, name, address, password, contactNumber, emailId, doctors } =
