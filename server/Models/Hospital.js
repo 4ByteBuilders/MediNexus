@@ -17,7 +17,10 @@ const HospitalSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  doctors: [String],
+  doctors: [{
+      type: mongoose.Schema.Types.String,
+      ref: "Doctor",
+    }],
   contactNumber: String,
   emailId: String,
 });

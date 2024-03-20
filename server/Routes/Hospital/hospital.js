@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { catchAsync } = require('../../catchAsync');
-const { addPatient, getPatient } = require('../../Controllers/hospital_controllers');
+const { addPatient, getPatient, getDoctors } = require('../../Controllers/hospital_controllers');
 const { protector } = require('../../Controllers/protect_controller');
 const Prescription = require('../../Models/Prescription');
 const { Patient } = require('../../Models/Patient');
@@ -38,5 +38,7 @@ router.get(
   );
 
 router.post('/add-patient', catchAsync(protector), catchAsync(addPatient));
+
+router.get('/doctor-lookup', catchAsync(protector), catchAsync(getDoctors));
 
 module.exports = router;
