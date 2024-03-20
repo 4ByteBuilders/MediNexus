@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 function SwitchComponent({ user, setUser, items }) {
   return (
-    <div className="grid grid-cols-2 place-items-center rounded-full h-fit bg-slate-200 p-2 my-2">
+    <div className="flex flex-row w-full justify-around rounded-full h-fit bg-slate-200 p-2 my-2">
       {items.map((item, index) => (
         <div
           key={index}
