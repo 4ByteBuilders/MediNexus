@@ -1,10 +1,8 @@
-import React from "react";
 import * as z from "zod";
 import { instance as axios } from "../../lib/axiosConfig";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,6 +13,9 @@ import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
+import SwitchComponent from "./SwitchComponent"
+import { useState } from "react";
+
 const hospitalSchema = z.object({
   registrationId: z.string().min(6).max(50),
   password: z.string().min(6).max(50),
@@ -25,6 +26,7 @@ const initialValues = {
 };
 
 const Login = () => {
+  const [user, setUser] = useState('Hospital/Doctor');
   const form = useForm({
     resolver: zodResolver(hospitalSchema),
     defaultValues: initialValues,
@@ -47,6 +49,7 @@ const Login = () => {
     <div className="flex items-center justify-center">
       <div className="flex flex-col gap-3 p-5 w-1/2">
         <h1 className="text-3xl font-bold">Login</h1>
+        <SwitchComponent user={user} setUser={setUser} items={["Hospital/Doctor", "Patient"]} />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -62,9 +65,6 @@ const Login = () => {
                       className="text-md"
                     />
                   </FormControl>
-                  <FormDescription>
-                    This is the registration id of the hospital
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -72,20 +72,17 @@ const Login = () => {
 
             <FormField
               control={form.control}
-              name="password"
+              name="Password"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-md">Password</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="password"
+                      placeholder="Password"
                       {...field}
                       className="text-md"
                     />
                   </FormControl>
-                  <FormDescription>
-                    This is the password of the hospital
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

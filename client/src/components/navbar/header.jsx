@@ -28,8 +28,8 @@ export function Navbar() {
     <div
       className={
         window.location.pathname === "/hospitalhome" ||
-        window.location.pathname === "/viewstocks" ||
-        window.location.pathname === "/patienthome"
+          window.location.pathname === "/viewstocks" ||
+          window.location.pathname === "/patienthome"
           ? "hidden"
           : "relative w-full bg-background font-lato z-10"
       }
@@ -64,13 +64,14 @@ export function Navbar() {
             onClick={() => (window.location.pathname = "/signup")}
             className="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
           >
-            SignUp
+            Signup
           </button>
           <button
             type="button"
             className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+            onClick={() => (window.location.pathname = "/login")}
           >
-            LogIn
+            Login
           </button>
         </div>
         <div className="lg:hidden">
