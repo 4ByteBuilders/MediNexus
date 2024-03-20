@@ -20,7 +20,8 @@ export default function SearchResults({ item, values }) {
     console.log("It ran");
     setLoading(true);
     try {
-      const res = await axios.get("/hospital/patient-lookup", values);
+      console.log(values);
+      const res = await axios.get("/hospital/patient-lookup", { params: values });
       console.log(res.data);
       if (res.data.patients.length !== 0) {
         const data = res.data.patients;
@@ -58,23 +59,21 @@ export default function SearchResults({ item, values }) {
         {isLoading ? (
           <Loading />
         ) : patient ? (
-          patient.map((patient, index) => (
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="text-right">Name: {patient.name}</div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="text-right">
-                  Aadhar last 4 digits: {patient.aadhar}
-                </div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="text-right">
-                  Aadhar last 4 digits: {patient.phoneNumber}
-                </div>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <div className="text-right">Name: {patient.name}</div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <div className="text-right">
+                Aadhar last 4 digits: {patient.aadhar}
               </div>
             </div>
-          ))
+            <div className="grid grid-cols-4 items-center gap-4">
+              <div className="text-right">
+                Aadhar last 4 digits: {patient.phoneNumber}
+              </div>
+            </div>
+          </div>
         ) : (
           <p>No patients found</p>
         )}

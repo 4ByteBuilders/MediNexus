@@ -1,6 +1,4 @@
-import { useContext } from "react";
-import { useState } from "react";
-import { Button } from "../ui/button";
+import { useContext, useState } from "react";
 import Patientlist from "./Patientlist";
 import { HospitalDataContext } from "@/contextAPIs/HospitalContext";
 import { Input } from "../ui/input";
