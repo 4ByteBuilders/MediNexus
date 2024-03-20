@@ -35,7 +35,11 @@ const Hospitalfull = () => {
     aadhar: "",
   });
   const [patient, setPatient] = useState(null);
-  const [queue, setQueue] = useState([]);
+  // const [queue, setQueue] = useState([]);
+  const [queue, setQueue] = useState(() => {
+    const savedQueue = localStorage.getItem('appointmentQueue');
+    return savedQueue ? JSON.parse(savedQueue) : [];
+  });
   // const { hospitalData } = useContext(HospitalDataContext);
 
   return (

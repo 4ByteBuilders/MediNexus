@@ -34,10 +34,31 @@ export default function SearchResults({
   setQueue,
   queue,
 }) {
-  const addToQueue = () => {
-    setQueue([...queue, patient]);
+  // const addToQueue = () => {
+  //   setQueue([...queue, patient]);
 
+  // };
+
+  const addToQueue = async () => {
+    console.log("patient lolol",patient);
+    const patientName = patient.name;
+    const patientId = patient._id;
+    const doctorId = patient.selectedDoctorId;
+    const res = await axios.post('/prescription/create', {
+      patientName,
+      patientId,
+      doctorId,
+    });
+    if(res.data.success === true){
+      const updatedQueue = [...queue, patient];
+      setQueue(updatedQueue);
+      localStorage.setItem('appointmentQueue', JSON.stringify(updatedQueue));
+      toast.success("Appointment Scheduled!");
+    } else{
+      toast.error("Something Went Wrong! Please try again");
+    }
   };
+
   const [isLoading, setLoading] = useState(true);
   const [doctorName, setDoctorName] = useState("");
   const [speciality, setSpeciality] = useState("");

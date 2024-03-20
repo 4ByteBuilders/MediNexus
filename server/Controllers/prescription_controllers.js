@@ -5,6 +5,9 @@ const { Patient } = require('../Models/Patient');
 
 const createPrescription = async(req,res,next)=>{
     let {patientName, patientId, doctorId} = req.body;
+    console.log(patientName);
+    console.log(patientId);
+    console.log(doctorId);
     const {isHospital} = req.isHospital;
     if(isHospital === false){
         throw new CustomError("Unauthorized Access", 401);
@@ -20,7 +23,7 @@ const createPrescription = async(req,res,next)=>{
         createdbyHospital: hospitalId,
     });
     await newPrescription.save();
-    res.status(200).send({status: "Prescription Created", newPrescription});    
+    res.status(200).send({status: "Prescription Created", newPrescription, success: true});    
     // socket ting to doctor and patient
     // test ids to be uploaded by hospital
 }
