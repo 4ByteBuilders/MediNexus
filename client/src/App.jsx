@@ -9,7 +9,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HospitalDataProvider } from "./contextAPIs/HospitalContext";
 import Fullstocks from "./components/viewStocks/Fullstocks";
 import Login from "./components/authentication/Login";
-import Patientfull from "./components/patientDashboard/Patientfull";
+import Patientfull from "./components/patient/Patientfull";
 import Doctorfull from "./components/doctorDashboard/Doctorfull";
 import Prescriptions from "./components/patient/Prescriptions";
 

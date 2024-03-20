@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 const Prescription = require("../Models/Prescription");
 const CustomError = require("../CustomError");
-const { Patient } = require('../Models/Patient');
+const Patient  = require('../Models/Patient');
 
 const createPrescription = async(req,res,next)=>{
     let {patientName, patientId, doctorId, prescriptionId} = req.body;
