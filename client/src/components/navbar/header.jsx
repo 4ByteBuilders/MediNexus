@@ -28,18 +28,15 @@ export function Navbar() {
     <div
       className={
         window.location.pathname === "/hospitalhome" ||
-        window.location.pathname === "/viewstocks" ||
-        window.location.pathname === "/patienthome" ||
-        window.location.pathname === "/doctorhome" ||
-        window.location.pathname === "/viewstocks" ||
-        window.location.pathname === "/patienthome" ||
-<<<<<<< HEAD
-        window.location.pathname === "/prescriptions" ||
-        window.location.pathname === "/uploadtests"
-=======
-        window.location.pathname === "/prescriptionform" ||
-        window.location.pathname === "/prescriptions"
->>>>>>> ad1f31b2fef92836775b4aec2d6f4b79d24fed1f
+          window.location.pathname === "/viewstocks" ||
+          window.location.pathname === "/patienthome" ||
+          window.location.pathname === "/doctorhome" ||
+          window.location.pathname === "/viewstocks" ||
+          window.location.pathname === "/patienthome" ||
+          window.location.pathname === "/prescriptions" ||
+          window.location.pathname === "/uploadtests" ||
+          window.location.pathname === "/prescriptionform" ||
+          window.location.pathname === "/prescriptions"
           ? "hidden"
           : "relative w-full bg-background font-lato z-10"
       }
