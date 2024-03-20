@@ -29,11 +29,11 @@ const Patientlist = ({ queue }) => {
 
   return (
     <div className="bg-white rounded-sm p-4 w-full">
-      <h1 className="text-2xl font-semibold mb-2">Recent Patients</h1>
+      <h1 className="text-2xl font-semibold mb-2">Appointments</h1>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Name</TableHead>
+            <TableHead className="w-[250px]">Name</TableHead>
             <TableHead>Blood group</TableHead>
             <TableHead>Aadhar no</TableHead>
             <TableHead className="text-right">Doctor</TableHead>

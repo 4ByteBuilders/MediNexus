@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import Loading from "../ui/loading";
 import { useEffect, useState } from "react";
@@ -24,7 +25,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "../ui/input";
-import { set } from "react-hook-form";
 
 export default function SearchResults({
   item,
@@ -36,6 +36,7 @@ export default function SearchResults({
 }) {
   const addToQueue = () => {
     setQueue([...queue, patient]);
+
   };
   const [isLoading, setLoading] = useState(true);
   const [doctorName, setDoctorName] = useState("");
@@ -51,7 +52,6 @@ export default function SearchResults({
   };
 
   const searchPatient = async () => {
-    console.log("It ran");
     setLoading(true);
     try {
       console.log(values);
@@ -92,7 +92,7 @@ export default function SearchResults({
     }
   };
   return (
-    <Dialog>
+    <Dialog   >
       <DialogTrigger onClick={searchPatient} asChild>
         <div className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer">
           <div className="">{item.icon}</div>
@@ -195,10 +195,12 @@ export default function SearchResults({
             </DropdownMenuContent>
           </DropdownMenu>
           <div className="w-1" />
-          {patient ? (
-            <Button type="submit" onClick={addToQueue}>
-              Add Patient to Queue
-            </Button>
+          {patient && patient.selectedDoctorId ? (
+            <DialogClose>
+              <Button type="submit" onClick={addToQueue}>
+                Add Patient to Queue
+              </Button>
+            </DialogClose>
           ) : (
             <Button disabled type="submit">
               Add Patient to Queue
@@ -215,4 +217,6 @@ SearchResults.propTypes = {
   values: PropTypes.object,
   patient: PropTypes.object,
   setPatient: PropTypes.func,
+  setQueue: PropTypes.func,
+  queue: PropTypes.array,
 };

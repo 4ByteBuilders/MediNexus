@@ -98,11 +98,6 @@ const Hospitalfull = () => {
               />
             </div>
           </div>
-          {patient && (
-            <p>
-              {patient.name} {patient.selectedDoctorName}
-            </p>
-          )}
           <Patientlist queue={queue} />
         </div>
       </div>
