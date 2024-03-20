@@ -26,7 +26,7 @@ const createPrescription = async(req,res,next)=>{
 }
 
 const doctorCheckup = async(req,res,next)=>{
-    let { prescriptionId, disease , doctorsOpinion} = req.body;
+    let { prescriptionId, disease , doctorsOpinion, medicines} = req.body;
     // prescription Id has been tinged to the doctor which he will pass to this route
     // via the request body
     const isDoctor = req.isDoctor;
@@ -35,6 +35,7 @@ const doctorCheckup = async(req,res,next)=>{
     }
     const prescription = await Prescription.findById(prescriptionId);
     if(prescription){
+        prescription.medicines = medicines;
         prescription.disease = disease;
         prescription.doctorsOpinion = doctorsOpinion;
         await prescription.save();

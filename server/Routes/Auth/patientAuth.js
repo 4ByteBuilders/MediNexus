@@ -3,4 +3,6 @@ const { catchAsync } = require("../../catchAsync");
 
 const router = express.Router();
 
-router.post("/login", (req, res, next) => {});
+router.post("/login", catchAsync((req, res, next) => {
+    const {} = req.body;
+}));

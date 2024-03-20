@@ -39,6 +39,7 @@ const PrescriptionSchema = new Schema({
     doctorsOpinion: {
         type: String,
     },
+    medicines: [String],
 });
 
 const Prescription = mongoose.model('Prescription', PrescriptionSchema);
