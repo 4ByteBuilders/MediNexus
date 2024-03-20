@@ -29,6 +29,23 @@ body,
   backdrop-filter: blur(3px);
 }
 
+::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+/* ::-webkit-scrollbar-track {
+  background: #202d29;
+} */
+
+::-webkit-scrollbar-thumb {
+  background: rgba(150, 181, 172, 0.8);
+  border-radius: 100vw;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 181, 172, 0.4);
+}
+
 @layer base {
   :root {
     --background: 167 29% 94%;
