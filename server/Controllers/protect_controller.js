@@ -37,11 +37,6 @@ const protector = async (req, res, next) => {
     }
 }
 
-// const protector = async (req,res)=>{
-//     const token = req.cookies.token;
-//     console.log("token", token);
-// }
-
 module.exports = {
     protector,
 }
