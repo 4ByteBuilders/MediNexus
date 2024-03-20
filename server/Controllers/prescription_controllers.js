@@ -53,8 +53,15 @@ const getPrescription = async (req, res, next) => {
     console.log(patient_id);
     //dob ka / ko underscore karke bhejega front end se
     patient_id = patient_id.replace(/_/g, '/');
-    const patient = await Patient.findById(patient_id).populate('prescriptionIds');
-    if(!patient){
+    const patient = await Patient.findById(patient_id)
+        .populate({
+            path: 'prescriptionIds',
+            populate: [
+                { path: 'doctorId' },
+                { path: 'createdbyHospital' }
+            ]
+        });
+    if (!patient) {
         throw new CustomError("Patient Not Found", 404);
     }
     console.log("Patient: ", patient);

@@ -1,4 +1,3 @@
-
 import { IoNewspaper } from "react-icons/io5";
 import { GrDocumentTest } from "react-icons/gr";
 import { MdDashboard } from "react-icons/md";
@@ -32,13 +31,10 @@ const Patientfull = () => {
   return (
     <div className="w-screen pl-[220px] pt-8 font-lato">
       <PatientSidebar items={sideBarItemsUpper} page={page} setPage={setPage} />
-      {
-        page === "Dashboard" &&
-        <First />}
-      {page === "Prescriptions" &&
+      {page === "Dashboard" && <First />}
+      {page === "Prescriptions" && (
         <Prescriptions page={page} patientData={patientData} />
-      }
-
+      )}
     </div>
   );
 };
