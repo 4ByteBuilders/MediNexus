@@ -15,10 +15,29 @@ import { instance as axios } from "@/lib/axiosConfig";
 import PropTypes from "prop-types";
 import { CgGirl } from "react-icons/cg";
 import { CgBoy } from "react-icons/cg";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Input } from "../ui/input";
 
 export default function SearchResults({ item, values }) {
   const [patient, setPatient] = useState(null);
   const [isLoading, setLoading] = useState(true);
+
+  //capitalize name function
+  const capitalize = (name) => {
+    const names = name.split(' ');
+    const capitalizedNames = names.map(name => {
+      return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    });
+    return capitalizedNames.join(' ');
+  };
+
   const searchPatient = async () => {
     console.log("It ran");
     setLoading(true);
@@ -40,7 +59,32 @@ export default function SearchResults({ item, values }) {
     }
     setLoading(false);
   };
-
+  const items = [
+    {
+      name: 'John Doe',
+      speciality: 'Cardiologist',
+    },
+    {
+      name: 'Jane Doe',
+      speciality: 'Dentist',
+    },
+    {
+      name: 'John Doe',
+      speciality: 'Cardiologist',
+    },
+    {
+      name: 'Jane Doe',
+      speciality: 'Dentist',
+    },
+    {
+      name: 'John Doe',
+      speciality: 'Cardiologist',
+    },
+    {
+      name: 'Jane Doe',
+      speciality: 'Dentist',
+    }
+  ]
   return (
     <Dialog>
       <DialogTrigger onClick={searchPatient} asChild>
@@ -53,29 +97,58 @@ export default function SearchResults({ item, values }) {
         <DialogHeader>
           <DialogTitle>Search Results</DialogTitle>
           <DialogDescription>
-            Select any one of the following patients
+            Select if the patient is found
           </DialogDescription>
         </DialogHeader>
         {isLoading ? (
           <Loading />
         ) : patient ? (
-          <div className="flex flex-row gap-4 py-4">
-            <div className="flex flex-row items-start gap-2">
-              <CgBoy />
-              <div className="flex flex-col items-start">
-                <div className="text-center">Name: {patient.name}</div>
-                <div className="text-center">
-                  Aadhar: {patient._id.slice(0, 4)}
-                </div>
-              </div>
+          <div className="flex flex-row items-center gap-4 py-4 bg-slate-200 cursor-pointer rounded-lg px-3">
+            <div>
+              {patient.gender === "male" ? <CgBoy size={34} /> : <CgGirl size={34} />}
+            </div>
+            <div className="flex flex-col items-start">
+              <p className="text-center">Name: <span className="font-semibold">{capitalize(patient.name)}</span></p>
+              <p className="text-center">Aadhar: <span className="font-semibold">{patient._id.slice(0, 4)}</span></p>
+              <p className="text-center">Blood group: <span className="font-semibold">{patient.bloodType}</span></p>
             </div>
           </div>
         ) : (
           <p>No patients found</p>
         )}
-
         <DialogFooter>
-          <Button type="submit">Add Patient to Queue</Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger>Select Doctor</DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>
+                <div className="flex flex-row gap-2">
+                  <Input type="text" placeholder="Name" />
+                  <Input type="text" placeholder="Speciality" />
+
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {
+                items.map((item, index) => {
+                  return (
+                    <DropdownMenuItem key={index}>
+                      <div className="flex flex-col">
+                        <p className="font-semibold">{item.name}</p>
+                        <p>{item.speciality}</p>
+                      </div>
+                    </DropdownMenuItem>
+                  )
+                })
+              }
+
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <div className="w-1" />
+          {
+            patient ?
+              <Button type="submit">Add Patient to Queue</Button> :
+              <Button disabled type="submit">Add Patient to Queue</Button>
+          }
         </DialogFooter>
       </DialogContent>
     </Dialog>
