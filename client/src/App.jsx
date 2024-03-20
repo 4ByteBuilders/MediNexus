@@ -11,6 +11,7 @@ import Fullstocks from "./components/viewStocks/Fullstocks";
 import Login from "./components/authentication/Login";
 import Patientfull from "./components/patient/Patientfull";
 import Doctorfull from "./components/doctorDashboard/Doctorfull";
+import Blogsview from "./components/doctorDashboard/Blogsview";
 import { PatientDataProvider } from "./contextAPIs/PatientContext";
 import UploadTests from "./hospitalUploadTests/UploadTests";
 import PrescriptionForm from "./components/doctorDashboard/PrescriptionForm";
@@ -42,14 +43,18 @@ export default function App() {
             </PatientDataProvider>
           }
         />
-        <Route path="/doctorhome" element={
-          <DoctorDataProvider>
-            <Doctorfull />
-          </DoctorDataProvider>
-        } />
+        <Route
+          path="/doctorhome"
+          element={
+            <DoctorDataProvider>
+              <Doctorfull />
+            </DoctorDataProvider>
+          }
+        />
         <Route path="/prescriptionform" element={<PrescriptionForm />} />
         <Route path="/viewstocks" element={<Fullstocks />} />
         <Route path="/doctorhome" element={<Doctorfull />} />
+        <Route path="/blogsview" element={<Blogsview />} />
         <Route
           path="/hospitalhome"
           element={
