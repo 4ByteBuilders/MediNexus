@@ -42,19 +42,19 @@ export default function Signup() {
   });
 
   async function onSubmit(values) {
-    // try {
-    //   const res = await axios.post("/hospital-auth/register", values);
-    //   console.log(res);
-    //   // setHospitalData(res.data._doc);
-    //   toast.success(`${user} registered successfully`);
-    //   setTimeout(() => {
-    //     window.location.href = "/hospitalhome";
-    //   }, 1500);
-    // } catch (error) {
-    //   console.log(error);
-    //   toast.error("An error occurred");
-    // }
-    console.log(values);
+    try {
+      const res = await axios.post("/hospital-auth/register", values);
+      console.log(res);
+      // setHospitalData(res.data._doc);
+      toast.success(`${user} registered successfully`);
+      setTimeout(() => {
+        window.location.href = "/hospitalhome";
+      }, 1500);
+    } catch (error) {
+      console.log(error);
+      toast.error("An error occurred");
+    }
+    // console.log(values);
   }
 
   return (
