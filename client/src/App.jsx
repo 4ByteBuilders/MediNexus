@@ -12,6 +12,7 @@ import Login from "./components/authentication/Login";
 import Patientfull from "./components/patient/Patientfull";
 import Doctorfull from "./components/doctorDashboard/Doctorfull";
 import Prescriptions from "./components/patient/Prescriptions";
+import { PatientDataProvider } from "./contextAPIs/PatientContext";
 
 export default function App() {
   return (
@@ -31,7 +32,11 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/patienthome" element={<Patientfull />} />
+        <Route path="/patienthome" element={
+          <PatientDataProvider>
+            <Patientfull />
+          </PatientDataProvider>
+        } />
         <Route path="/doctorhome" element={<Doctorfull />} />
         <Route path="/prescriptions" element={<Prescriptions />} />
         <Route path="/viewstocks" element={<Fullstocks />} />
