@@ -2,6 +2,8 @@ const uuid = require('uuid');
 const Prescription = require("../Models/Prescription");
 const CustomError = require("../CustomError");
 const Patient = require('../Models/Patient');
+const Test = require('../Models/Test');
+const Doctor = require('../Models/Doctor');
 
 const createPrescription = async (req, res, next) => {
     let { patientName, patientId, doctorId, prescriptionId } = req.body;
@@ -22,13 +24,16 @@ const createPrescription = async (req, res, next) => {
         createdbyHospital: hospitalId,
     });
     await newPrescription.save();
+    const doctor = await Doctor.findById(doctorId);
+    doctor.pendingPrescriptions.push(prescriptionId);
+    await doctor.save();
     res.status(200).send({ status: "Prescription Created", newPrescription, success: true });
     // socket ting to doctor and patient
     // test ids to be uploaded by hospital
 }
 
 const doctorCheckup = async (req, res, next) => {
-    let { prescriptionId, disease, doctorsOpinion, medicines } = req.body;
+    let { prescriptionId, disease, doctorOpinion, medicines, symptoms, tests } = req.body;
     // prescription Id has been tinged to the doctor which he will pass to this route
     // via the request body
     const isDoctor = req.isDoctor;
@@ -41,6 +46,22 @@ const doctorCheckup = async (req, res, next) => {
         prescription.disease = disease;
         prescription.doctorsOpinion = doctorsOpinion;
         await prescription.save();
+        const patient = Patient.findById(prescription.patientId);
+        for(let testName of tests){
+            const test = new Test({
+                _id: uuid(),
+                testName,
+                patientName: prescription.patientName,
+                patientId: prescription.patientId,
+                doctorId: prescription.doctorId,
+                doctorName: req.user.name,
+                prescriptionId: prescriptionId,
+                testDate: new Date(),
+            });
+            await test.save();
+            patient.testIds.push(test._id);
+        }
+        await patient.save();
         res.status(200).send({ status: "Prescription Updated", prescription });
         // socket ting to patient
     } else {
