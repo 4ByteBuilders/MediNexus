@@ -52,6 +52,14 @@ export default function App() {
           }
         />
         <Route path="/prescriptionform" element={<PrescriptionForm />} />
+        <Route
+          path="/doctorhome"
+          element={
+            <DoctorDataProvider>
+              <Doctorfull />
+            </DoctorDataProvider>
+          }
+        />
         <Route path="/viewstocks" element={<Fullstocks />} />
         <Route path="/doctorhome" element={<Doctorfull />} />
         <Route path="/blogsview" element={<Blogsview />} />

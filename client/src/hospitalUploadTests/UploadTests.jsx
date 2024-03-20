@@ -8,14 +8,13 @@ import { useState } from "react";
 import { instance as axios } from "../lib/axiosConfig";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
-import { DialogFooter, DialogHeader } from "@/components/ui/dialog";
+import { DialogHeader } from "@/components/ui/dialog";
 import TestUpload from "./TestUpload";
 
 const sideBarItemsUpper = [
