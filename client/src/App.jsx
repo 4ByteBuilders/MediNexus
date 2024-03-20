@@ -10,6 +10,7 @@ import { HospitalDataProvider } from "./contextAPIs/HospitalContext";
 import Fullstocks from "./components/viewStocks/Fullstocks";
 import Login from "./components/authentication/Login";
 import Patientfull from "./components/patientDashboard/Patientfull";
+import Doctorfull from "./components/doctorDashboard/Doctorfull";
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/patienthome" element={<Patientfull />} />
+        <Route path="/doctorhome" element={<Doctorfull />} />
         <Route path="/viewstocks" element={<Fullstocks />} />
         <Route
           path="/hospitalhome"
